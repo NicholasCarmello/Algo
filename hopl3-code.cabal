@@ -1,10 +1,10 @@
 cabal-version: 2.2
 
--- This file has been generated from package.yaml by hpack version 0.33.0.
+-- This file has been generated from package.yaml by hpack version 0.34.4.
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 1571a2c8b82f999687a7d22325e701a0d666e0cc60fa30f5a2f9c6451b8acb10
+-- hash: 895aa113299c2615aa5f4a7e2f3fc3674e539ab9f104ee25c58940930754d8da
 
 name:           hopl3
 version:        0.1.0.0
@@ -15,7 +15,6 @@ author:         Matthew A Johnson
 maintainer:     Matt.Johnson@marist.edu
 copyright:      2015-2020 Matthew A Johnson
 license:        CC-BY-NC-3.0
-license-file:   LICENSE
 build-type:     Simple
 extra-source-files:
     README.md
@@ -27,12 +26,12 @@ source-repository head
 
 library
   exposed-modules:
+      HOPL.LET.DataStructures
       HOPL.LET.Environment
       HOPL.LET.Interp
-      HOPL.LET.Lexer
-      HOPL.LET.Parser
-      HOPL.LET.Syntax
-      HOPL.LET.Val
+      HOPL.LET.Lang.Lexer
+      HOPL.LET.Lang.Parser
+      HOPL.LET.Lang.Syntax
       HOPL.Types
   other-modules:
       Paths_hopl3

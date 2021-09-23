@@ -9,50 +9,40 @@
  -
  -  Author: Matthew A Johnson
  -}
-module HOPL.LET.Environment (
-    Env,emptyEnv,applyEnv,extendEnv,extendEnv'
-  ) where
+module HOPL.LET.Environment (Env (..)) where
 
-import           HOPL.Types (Id)
-import           HOPL.LET.Val (DenVal)
-
-{- Recursive "data structure" representation for environments -}
-
-data Env = EmptyEnv | Env Id DenVal Env
-
-instance Show Env where
-    show env = show $ envToList env
+import HOPL.LET.DataStructures (Binding, DenVal, Environment (..))
+import HOPL.Types (Id)
 
 {- Interface for an environment (symbol-to-value mapping) -}
 
-type Binding = (Id,DenVal)
+class Env e where
+  -- construct an emptyEnv environment
+  emptyEnv :: e
 
--- construct an emptyEnv environment
-emptyEnv :: Env
-emptyEnv = EmptyEnv
+  -- construct new environment from existing environment plus a new binding
+  extendEnv :: Id -> DenVal -> e -> e
 
--- extract from an environment the mapped value if search symbol is present
-applyEnv :: Env -> Id -> DenVal
-applyEnv EmptyEnv y = nobinding y
-applyEnv (Env x v e) y
-    | x == y    = v
-    | otherwise = applyEnv e y
+  -- extract from an environment the mapped value if search symbol is present
+  applyEnv :: e -> Id -> DenVal
 
--- construct new environment from existing environment plus a new binding
-extendEnv :: Env -> Id -> DenVal -> Env
-extendEnv e x v = Env x v e
+  -- construct new environment from existing environment plus new bindings
+  extendEnv' :: [Id] -> [DenVal] -> e -> e
 
--- construct new environment from existing environment plus new bindings
-extendEnv' :: Env -> [Binding] -> Env
-extendEnv' e ((x,v):xvs) = extendEnv' (extendEnv e x v) xvs
-extendEnv' e [] = e
+{- Implementation of environment interface using data structure representation -}
+
+instance Env Environment where
+  emptyEnv = EmptyEnvironment
+  extendEnv = Environment
+  applyEnv EmptyEnvironment name = nobinding name
+  applyEnv (Environment name val env) name'
+    | name' == name = val
+    | otherwise = applyEnv env name'
+  extendEnv' [] [] = id
+  extendEnv' vars vals =
+    extendEnv' (tail vars) (tail vals) . extendEnv (head vars) (head vals)
 
 {- Auxiliary functions -}
 
-envToList :: Env -> [Binding]
-envToList EmptyEnv = []
-envToList (Env x v savedEnv) = (x,v) : envToList savedEnv
-
 nobinding :: Id -> a
-nobinding = error . ("No binding found for \""++) . (++"\"")
-
+nobinding = error . ("No binding found for \"" ++) . (++ "\"")

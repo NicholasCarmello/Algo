@@ -10,8 +10,8 @@ module Main where
 
 import HOPL.LET.Environment
 import HOPL.LET.Interp
-import HOPL.LET.Parser
-import HOPL.LET.Val
+import HOPL.LET.Lang.Parser
+import HOPL.LET.DataStructures
 
 import Test.Tasty
 import Test.Tasty.Hspec
@@ -35,9 +35,9 @@ main = do
       , errSpec
       ])
   where
-    testEnv = extendEnv' emptyEnv [ ("i", NumVal 1)
-                                  , ("v", NumVal 5)
-                                  , ("x", NumVal 10) ]
+    testEnv = extendEnv' [ "i", "v", "x" ]
+                         [ NumVal 1, NumVal 5, NumVal 10 ]
+                         emptyEnv
 
 {- Individual test cases -}
 
