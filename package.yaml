@@ -1,10 +1,10 @@
-name:                hopl3
-version:             0.1.0.0
-github:              "githubuser/hopl3"
+name:                hopl3-code
+version:             0.1.1.0
+github:              "Tientuine/hopl3-code"
 license:             CC-BY-NC-3.0
 author:              "Matthew A Johnson"
 maintainer:          "Matt.Johnson@marist.edu"
-copyright:           "2015-2020 Matthew A Johnson"
+copyright:           "2015-2021 Matthew A Johnson"
 
 extra-source-files:
 - README.md
@@ -17,7 +17,7 @@ extra-source-files:
 # To avoid duplicated efforts in documentation and dealing with the
 # complications of embedding Haddock markup inside cabal files, it is
 # common to point users to the README.md file.
-description:         Please see the README on GitHub at <https://github.com/githubuser/hopl3#readme>
+description:         Please see the README on GitHub at <https://github.com/Tientuine/hopl3-code#readme>
 
 dependencies:
 - base >= 4.7 && < 5
@@ -36,7 +36,7 @@ executables:
     - -with-rtsopts=-N
     - -main-is repl
     dependencies:
-    - hopl3
+    - hopl3-code
     - mtl >= 2.2
     - haskeline >= 0.7
 
@@ -49,7 +49,7 @@ executables:
     - -with-rtsopts=-N
     - -main-is run
     dependencies:
-    - hopl3
+    - hopl3-code
     - mtl >= 2.2
     - haskeline >= 0.7
 
@@ -62,7 +62,7 @@ tests:
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
-    - hopl3
+    - hopl3-code
     - mtl >= 2.2
     - haskeline >= 0.7
     - tasty
