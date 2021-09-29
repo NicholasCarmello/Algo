@@ -51,6 +51,8 @@ expression =
       DiffExp <$> (reserved "-" >> symbol "(" >> expression)
         <*> (symbol "," >> expression <* symbol ")"),
       IsZeroExp <$> (reserved "zero?" >> parens expression),
+      AddExp <$> (reserved "+" >> symbol "(" >> expression)
+      <*> (symbol "," >> expression <* symbol ")"),
       ConstExp <$> integer,
       VarExp <$> identifier
     ]

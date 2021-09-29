@@ -21,4 +21,5 @@ data Exp
   | DiffExp Exp Exp
   | LetExp Id Exp Exp
   | IfExp Exp Exp Exp
+  | AddExp Exp Exp
   deriving (Eq, Ord, Show)

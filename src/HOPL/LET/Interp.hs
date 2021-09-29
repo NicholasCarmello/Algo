@@ -58,3 +58,7 @@ valueOf (IfExp exp₁ exp₂ exp₃) ρ = valueOf exp' ρ
     exp' = case valueOf exp₁ ρ of
       BoolVal True -> exp₂
       BoolVal False -> exp₃
+valueOf (AddExp exp₁ exp₂) ρ = NumVal (n₁ + n₂)
+ where
+   NumVal n₁ = valueOf exp₁ ρ
+   NumVal n₂ = valueOf exp₂ ρ

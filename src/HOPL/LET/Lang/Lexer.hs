@@ -19,7 +19,7 @@ letLexer =
 letDef =
   emptyDef
     { Tok.commentLine = "#",
-      Tok.reservedOpNames = ["=", "-"],
+      Tok.reservedOpNames = ["=", "-","+"],
       Tok.reservedNames = ["let", "in", "if", "then", "else", "zero?"]
     }
 
