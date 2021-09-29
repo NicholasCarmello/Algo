@@ -35,6 +35,8 @@ spec =
         interp "-(55, -(22,11))" `shouldBe` NumVal 44
       specify "test-var-1" $
         interp "x" `shouldBe` NumVal 10
+      specify "test-add-exp" $
+        interp "+(10,20)" `shouldBe` NumVal 30
       specify "test-var-2" $
         interp "-(x,1)" `shouldBe` NumVal 9
       specify "test-var-3" $
