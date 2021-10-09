@@ -66,6 +66,10 @@ valueOf (CallExp rator rand) ρ = applyProcedure f arg
 valueOf (LetrecExp pname param pbody body) ρ = valueOf body ρ'
   where
     ρ' = extendEnv pname (ProcVal (OpenProcedure param pbody)) ρ
+valueOf (EvenExp exp₁) ρ = BoolVal (n `mod` 2 == 0)
+  where 
+    NumVal n = valueOf exp₁ ρ 
+
 
 {- Auxiliary function for applying procedure values -}
 applyProcedure :: Procedure -> DenVal -> ExpVal

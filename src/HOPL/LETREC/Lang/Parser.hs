@@ -17,6 +17,7 @@ import HOPL.LETREC.Lang.Syntax (Exp (..), Pgm (..))
 import Text.Parsec (ParseError, choice, eof, parse, try)
 import qualified Text.Parsec.Expr as Ex
 import Text.Parsec.String (Parser)
+import Data.Type.Coercion (sym)
 
 parseToplevel :: String -> Either ParseError Pgm
 parseToplevel = parse (contents toplevel) "<stdin>"
@@ -58,6 +59,7 @@ expression =
         <*> expression,
       DiffExp <$> (reservedOp "-" >> symbol "(" >> expression)
         <*> (symbol "," >> expression <* symbol ")"),
+      EvenExp <$> (reserved "even" >> symbol "(" >> expression <* symbol ")"),
       IsZeroExp <$> (reserved "zero?" >> parens expression),
       ConstExp <$> integer,
       VarExp <$> identifier

@@ -24,4 +24,5 @@ data Exp
   | ProcExp Id Exp
   | CallExp Exp Exp
   | LetrecExp Id Id Exp Exp
+  | EvenExp Exp
   deriving (Eq, Ord, Show)

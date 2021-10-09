@@ -20,7 +20,7 @@ letDef =
   emptyDef
     { Tok.commentLine = "#",
       Tok.reservedOpNames = ["=", "-","+"],
-      Tok.reservedNames = ["let", "in", "if", "then", "else", "zero?"]
+      Tok.reservedNames = ["let", "in", "if", "then", "else", "zero?","even"]
     }
 
 integer :: Parser Integer

@@ -28,7 +28,8 @@ letDef =
           "else",
           "zero?",
           "proc",
-          "letrec"
+          "letrec",
+          "even"
         ]
     }
 
