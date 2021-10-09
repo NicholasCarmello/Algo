@@ -2,36 +2,54 @@
  -  Main.hs
  -
  -  Reference implementation of the toy language HOPL.LET by Mitchell Wand.
- -  This module provides routines for executables baesd on LET.
+ -  This module provides routines for executables based on HOPL languages.
  -
  -  Author: Matthew A Johnson
  -}
 module Main where
 
-import Control.Exception (ErrorCall)
+import Control.Exception (ErrorCall, catch)
 import Control.Monad (unless)
 import Control.Monad.Trans (liftIO)
-import HOPL.LET.Interp (interp)
+import qualified HOPL.LET.Interp as LET (interp)
+import qualified HOPL.LETREC.Interp as LETREC (interp)
+import qualified HOPL.PROC.Interp as PROC (interp)
+import HOPL.Types (Interpreter, Source)
 import System.Console.Haskeline
+  ( defaultSettings,
+    getInputLine,
+    outputStrLn,
+    runInputT,
+  )
 import System.Environment (getArgs)
 import System.IO (hPrint, stderr)
 
 repl :: IO ()
-repl = runInputT defaultSettings loop
+repl = do
+  args <- getArgs
+  let lang = if null args then "LET" else head args
+  runInputT defaultSettings (loop lang)
   where
-    loop = do
-      minput <- getInputLine "LET> "
+    loop lang = do
+      minput <- getInputLine (lang ++ "> ")
       case minput of
         Nothing -> outputStrLn "Goodbye."
         Just input ->
           unless (input == ":q") $
             liftIO
-              ( case interp input of
-                  Left err -> print err
-                  Right val -> print val
-                  `catch` (\e -> hPrint stderr (e :: ErrorCall))
+              ( case lang of
+                  "LET" -> doInterp LET.interp input
+                  "PROC" -> doInterp PROC.interp input
+                  "LETREC" -> doInterp LETREC.interp input
               )
-              >> loop
+              >> loop lang
+
+doInterp :: Show a => Interpreter a -> Source -> IO ()
+doInterp interp input =
+  case interp input of
+    Left err -> print err
+    Right val -> print val
+    `catch` (\e -> hPrint stderr (e :: ErrorCall))
 
 run :: IO ()
 run = do
@@ -40,7 +58,7 @@ run = do
     then putStrLn "hopl3-run: Missing source file name"
     else do
       prog <- readFile $ head args
-      case interp prog of
+      case LETREC.interp prog of
         Left err -> print err
         Right val -> print val
         `catch` (\e -> hPrint stderr (e :: ErrorCall))
