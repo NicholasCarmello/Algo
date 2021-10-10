@@ -25,4 +25,5 @@ data Exp
   | CallExp Exp Exp
   | LetrecExp Id Id Exp Exp
   | EvenExp Exp
+  | LetRecEvenExp Exp
   deriving (Eq, Ord, Show)

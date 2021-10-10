@@ -20,6 +20,7 @@ import HOPL.LETREC.Lang.Parser (ParseError, parseToplevel)
 import HOPL.LETREC.Lang.Syntax (Exp (..), Pgm (..))
 import HOPL.Types (Source)
 import Prelude hiding (exp)
+import Numeric (Floating(expm1))
 
 {- top-level interpreter routines -}
 
@@ -69,7 +70,9 @@ valueOf (LetrecExp pname param pbody body) ρ = valueOf body ρ'
 valueOf (EvenExp exp₁) ρ = BoolVal (n `mod` 2 == 0)
   where 
     NumVal n = valueOf exp₁ ρ 
-
+valueOf (LetRecEvenExp exp₁) ρ = BoolVal (n `mod` 2 ==0)
+  where
+    NumVal n = valueOf exp₁ ρ
 
 {- Auxiliary function for applying procedure values -}
 applyProcedure :: Procedure -> DenVal -> ExpVal

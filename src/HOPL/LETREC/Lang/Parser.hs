@@ -60,6 +60,7 @@ expression =
       DiffExp <$> (reservedOp "-" >> symbol "(" >> expression)
         <*> (symbol "," >> expression <* symbol ")"),
       EvenExp <$> (reserved "even" >> symbol "(" >> expression <* symbol ")"),
+      LetRecEvenExp <$> (reserved "letrec" >> reserved "even" >> symbol "(" >> expression <* symbol ")"),
       IsZeroExp <$> (reserved "zero?" >> parens expression),
       ConstExp <$> integer,
       VarExp <$> identifier
