@@ -27,12 +27,14 @@ data ExpVal
   = NumVal {expvalToNum :: Integer}
   | BoolVal {expvalToBool :: Bool}
   | ProcVal {expvalToProc :: Procedure}
+  | ListVal {expvalToList :: [ExpVal]}
   deriving (Eq)
 
 instance Show ExpVal where
   show (NumVal n) = "(NumVal " ++ show n ++ ")"
   show (BoolVal z) = "(BoolVal " ++ show z ++ ")"
   show (ProcVal f) = "(ProcVal " ++ show f ++ ")"
+  show (ListVal vs) = "(ListVal " ++ show vs ++ ")"
 
 {- Recursive "data structure" representation for environments -}
 
