@@ -11,6 +11,8 @@ module Main where
 import Control.Exception (ErrorCall, catch)
 import Control.Monad (unless)
 import Control.Monad.Trans (liftIO)
+import qualified HOPL.EXPLICIT_REFS.Interp as EXPLICIT_REFS (interp)
+import qualified HOPL.IMPLICIT_REFS.Interp as IMPLICIT_REFS (interp)
 import qualified HOPL.LET.Interp as LET (interp)
 import qualified HOPL.LETREC.Interp as LETREC (interp)
 import qualified HOPL.PROC.Interp as PROC (interp)
@@ -41,6 +43,8 @@ repl = do
                   "LET" -> doInterp LET.interp input
                   "PROC" -> doInterp PROC.interp input
                   "LETREC" -> doInterp LETREC.interp input
+                  "EXPLICIT_REFS" -> doInterp EXPLICIT_REFS.interp input
+                  "IMPLICIT_REFS" -> doInterp IMPLICIT_REFS.interp input
               )
               >> loop lang
 

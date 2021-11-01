@@ -4,7 +4,7 @@ cabal-version: 2.2
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 5ff48595dfb6799aff154ff33f726fcff14107b6c20487cfbc8bac3431f036c5
+-- hash: 69c00719edf1d19e7d402c78176fce639deee1ed6556fd1b366024af5e9019da
 
 name:           hopl3-code
 version:        0.1.1.0
@@ -26,6 +26,20 @@ source-repository head
 
 library
   exposed-modules:
+      HOPL.EXPLICIT_REFS.DataStructures
+      HOPL.EXPLICIT_REFS.Environment
+      HOPL.EXPLICIT_REFS.Interp
+      HOPL.EXPLICIT_REFS.Lang.Lexer
+      HOPL.EXPLICIT_REFS.Lang.Parser
+      HOPL.EXPLICIT_REFS.Lang.Syntax
+      HOPL.EXPLICIT_REFS.Store
+      HOPL.IMPLICIT_REFS.DataStructures
+      HOPL.IMPLICIT_REFS.Environment
+      HOPL.IMPLICIT_REFS.Interp
+      HOPL.IMPLICIT_REFS.Lang.Lexer
+      HOPL.IMPLICIT_REFS.Lang.Parser
+      HOPL.IMPLICIT_REFS.Lang.Syntax
+      HOPL.IMPLICIT_REFS.Store
       HOPL.LET.DataStructures
       HOPL.LET.Environment
       HOPL.LET.Interp
@@ -88,6 +102,8 @@ test-suite hopl3-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      ExplicitRefsSpec
+      ImplicitRefsSpec
       LetrecSpec
       LetSpec
       ProcSpec
