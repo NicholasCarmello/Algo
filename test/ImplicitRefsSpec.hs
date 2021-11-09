@@ -1,5 +1,5 @@
 {-
- -  ProcSpec.hs
+ -  ImplicitRefsSpec.hs
  -
  -  Reference implementation of the toy language HOPL.LET by Mitchell Wand.
  -  This module provides a test suite for the PROC interpreter.

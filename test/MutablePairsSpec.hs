@@ -1,30 +1,30 @@
 {-
- -  ExplicitRefsSpec.hs
+ -  MutablePairsSpec.hs
  -
  -  Reference implementation of the toy language HOPL.LET by Mitchell Wand.
  -  This module provides a test suite for the PROC interpreter.
  -
  -  Author: Matthew A Johnson
  -}
-module ExplicitRefsSpec (spec) where
+module MutablePairsSpec (spec) where
 
 import Data.Either (fromRight)
-import HOPL.EXPLICIT_REFS.DataStructures (ExpVal (..))
-import HOPL.EXPLICIT_REFS.Environment (Env (emptyEnv, extendEnv'))
-import HOPL.EXPLICIT_REFS.Interp (interpWith)
-import HOPL.EXPLICIT_REFS.Store (emptyStore)
+import HOPL.MUTABLE_PAIRS.DataStructures (ExpVal (..))
+import HOPL.MUTABLE_PAIRS.Environment (Env (emptyEnv, extendEnv'))
+import HOPL.MUTABLE_PAIRS.Interp (interpWith)
+import HOPL.MUTABLE_PAIRS.Store (emptyStore)
 import Test.Tasty.Hspec
 
-testStore = emptyStore
+testStore = [NumVal 1, NumVal 5, NumVal 10]
 
 testEnv =
   extendEnv'
     ["i", "v", "x"]
-    [NumVal 1, NumVal 5, NumVal 10]
+    [0, 1, 2]
     emptyEnv
 
 spec =
-  describe "EXPLICIT_REFS tests" $ do
+  describe "MUTABLE_PAIRS tests" $ do
     describe "Value tests" $ do
       specify "positive-const" $
         interp "11" `shouldBe` NumVal 11
@@ -79,7 +79,7 @@ spec =
           `shouldBe` NumVal (-1)
       specify "y-combinator-1" $
         interp
-          "let fix =  proc (f) \
+          "let fix = proc (f) \
           \             let d = proc (x) proc (z) ((f (x x)) z) \
           \             in proc (n) ((f (d d)) n) \
           \in let t4m = proc (f) proc(x) if zero?(x) then 0 else -((f -(x,1)),-4) \
@@ -94,61 +94,105 @@ spec =
         interp "let m = -5 in letrec f(x) = if zero?(x) then 0 else -((f -(x,1)), m) in (f 4)" `shouldBe` NumVal 20
       specify "HO-nested-letrecs" $
         interp
-          "letrec even(odd)  = proc(x) if zero?(x) then 1 else (odd -(x,1)) \
-          \in letrec  odd(x)  = if zero?(x) then 0 else ((even odd) -(x,1)) \
+          "letrec even(odd) = proc(x) if zero?(x) then 1 else (odd -(x,1)) \
+          \in letrec odd(x) = if zero?(x) then 0 else ((even odd) -(x,1)) \
           \   in (odd 13)"
           `shouldBe` NumVal 1
       specify "begin-test-1" $
         interp "begin 1; 2; 3 end" `shouldBe` NumVal 3
-      specify "gensym-test-1" $
+      specify "gensym-test" $
         interp
-          "let g = let counter = newref(0)\
-          \in proc (dummy) let d = setref(counter, -(deref(counter),-1))\
-          \in deref(counter)\
-          \in -((g 11),(g 22))"
+          "let g = let count = 0 \
+          \        in proc(d) let d = set count = -(count,-1) \
+          \                   in count \
+          \in -((g 11), (g 22))"
           `shouldBe` NumVal (-1)
-      specify "simple-store-test-1" $
-        interp "let x = newref(17) in deref(x)" `shouldBe` NumVal 17
       specify "assignment-test-1" $
         interp
-          "let x = newref(17)\
-          \in begin setref(x,27); deref(x) end"
+          "let x = 17 \
+          \in begin set x = 27; x end"
           `shouldBe` NumVal 27
-      specify "gensym-test-2" $
+      -- specify "even-odd-via-set" $
+      --   interp "let x = 0 \
+      --          \in letrec even(d) = if zero?(x) then 1 \
+      --                              \else let d = set x = -(x,1) \
+      --                                   \in (odd d) \
+      --                    \odd(d)  = if zero?(x) then 0 \
+      --                              \else let d = set x = -(x,1) \
+      --                                   \in (even d) \
+      --             \in let d = set x = 13 in (odd -99)" `shouldBe` NumVal 1
+      specify "example-for-book-1" $
         interp
-          "let g = let counter = newref(0)\
-          \in proc (dummy) begin \
-          \setref(counter, -(deref(counter),-1));\
-          \deref(counter)\
-          \end \
-          \in -((g 11),(g 22))"
+          "let f = proc (x) proc (y) \
+          \                    begin \
+          \                       set x = -(x,-1); \
+          \                       -(x,y) \
+          \                    end \
+          \in ((f 44) 33)"
+          `shouldBe` NumVal 12
+      specify "simple-mutpair-left-1" $
+        interp "let p = newpair(22,33) in left(p)" `shouldBe` NumVal 22
+      specify "simple-mutpair-right-1" $
+        interp "let p = newpair(22,33) in right(p)" `shouldBe` NumVal 33
+      specify "simple-mutpair-setleft-1" $
+        interp
+          "let p = newpair(22,33) \
+          \in begin setleft p = 77; \
+          \      left(p) \
+          \   end"
+          `shouldBe` NumVal 77
+      specify "simple-mutpair-setleft-2" $
+        interp
+          "let p = newpair(22,33) \
+          \in begin setleft p = 77; \
+          \      right(p) \
+          \   end"
+          `shouldBe` NumVal 33
+      specify "simple-mutpair-setright-1" $
+        interp
+          "let p = newpair(22,33) \
+          \in begin setright p = 77; \
+          \      right(p) \
+          \   end"
+          `shouldBe` NumVal 77
+      specify "simple-mutpair-setright-2" $
+        interp
+          "let p = newpair(22,33) \
+          \in begin setright p = 77; \
+          \      left(p) \
+          \   end"
+          `shouldBe` NumVal 22
+      specify "gensym-using-mutable-pair-left" $
+        interp
+          "let g = let count = newpair(0,0) \
+          \        in proc (dummy) \
+          \              begin \
+          \                 setleft count = -(left(count), -1); \
+          \                 left(count) \
+          \              end \
+          \in -((g 22), (g 22))"
           `shouldBe` NumVal (-1)
-      -- specify "even-odd-via-set-1" $
-      --   interp "let x = newref(0)\
-      --          \in letrec even(d) = if zero?(deref(x))\
-      --                              \then 1 \
-      --                              \else let d = setref(x, -(deref(x),1))\
-      --                                   \in (odd d)\
-      --                    \odd(d)  = if zero?(deref(x))\
-      --                              \then 0 \
-      --                              \else let d = setref(x, -(deref(x),1))\
-      --                                   \in (even d)\
-      --             \in let d = setref(x,13) in (odd -100)" `shouldBe` NumVal 1
-      specify "show-allocation-1" $
+      specify "gensym-using-mutable-pair-right" $
         interp
-          "let x = newref(22)\
-          \in let f = proc (z) let zz = newref(-(z,deref(x))) \
-          \in deref(zz) \
-          \in -((f 66), (f 55))"
-          `shouldBe` NumVal 11
-      specify "chains-1" $
+          "let g = let count = newpair(0,0) \
+          \        in proc (dummy) \
+          \              begin \
+          \                 setright count = -(right(count), -1); \
+          \                 right(count) \
+          \              end \
+          \in -((g 22), (g 22))"
+          `shouldBe` NumVal (-1)
+      specify "example-for-mutable-pairs-section" $
         interp
-          "let x = newref(newref(0))\
-          \in begin setref(deref(x), 11);\
-          \deref(deref(x))\
-          \end"
-          `shouldBe` NumVal 11
-
+          "let glo = newpair(11,22) \
+          \in let f = proc (loc) \
+          \              begin  % this is a comment\n \
+          \                 setright loc = left(loc); \
+          \                 setleft  glo = 99; \
+          \                 -(left(loc),right(loc)) \
+          \              end \
+          \   in (f glo)"
+          `shouldBe` NumVal 88
     describe "Exception tests" $ do
       specify "no-bool-to-diff-1" $
         printInterp "-(zero?(0),1)" `shouldThrow` anyException

@@ -9,13 +9,15 @@
 module Main where
 
 import Control.Exception (ErrorCall, catch)
-import Control.Monad (unless)
+import Control.Monad (unless, void)
 import Control.Monad.Trans (liftIO)
 import qualified HOPL.EXPLICIT_REFS.Interp as EXPLICIT_REFS (interp)
 import qualified HOPL.IMPLICIT_REFS.Interp as IMPLICIT_REFS (interp)
 import qualified HOPL.LET.Interp as LET (interp)
 import qualified HOPL.LETREC.Interp as LETREC (interp)
+import qualified HOPL.MUTABLE_PAIRS.Interp as MUTABLE_PAIRS (interp)
 import qualified HOPL.PROC.Interp as PROC (interp)
+import qualified HOPL.SIMPLE_STATEMENT.Interp as SIMPLE_STATEMENT (interp)
 import HOPL.Types (Interpreter, Source)
 import System.Console.Haskeline
   ( defaultSettings,
@@ -45,6 +47,8 @@ repl = do
                   "LETREC" -> doInterp LETREC.interp input
                   "EXPLICIT_REFS" -> doInterp EXPLICIT_REFS.interp input
                   "IMPLICIT_REFS" -> doInterp IMPLICIT_REFS.interp input
+                  "MUTABLE_PAIRS" -> doInterp MUTABLE_PAIRS.interp input
+                  "SIMPLE_STATEMENT" -> doInterp' SIMPLE_STATEMENT.interp input
               )
               >> loop lang
 
@@ -53,6 +57,13 @@ doInterp interp input =
   case interp input of
     Left err -> print err
     Right val -> print val
+    `catch` (\e -> hPrint stderr (e :: ErrorCall))
+
+doInterp' :: Interpreter (IO a) -> Source -> IO ()
+doInterp' interp input =
+  case interp input of
+    Left err -> print err
+    Right val -> void val
     `catch` (\e -> hPrint stderr (e :: ErrorCall))
 
 run :: IO ()

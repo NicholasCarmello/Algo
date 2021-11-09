@@ -4,7 +4,7 @@ cabal-version: 2.2
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 69c00719edf1d19e7d402c78176fce639deee1ed6556fd1b366024af5e9019da
+-- hash: ecad28ae875ac1e49e3a704a910dd63b81ee6ad13563dc2c75d2c753898a752c
 
 name:           hopl3-code
 version:        0.1.1.0
@@ -52,12 +52,26 @@ library
       HOPL.LETREC.Lang.Lexer
       HOPL.LETREC.Lang.Parser
       HOPL.LETREC.Lang.Syntax
+      HOPL.MUTABLE_PAIRS.DataStructures
+      HOPL.MUTABLE_PAIRS.Environment
+      HOPL.MUTABLE_PAIRS.Interp
+      HOPL.MUTABLE_PAIRS.Lang.Lexer
+      HOPL.MUTABLE_PAIRS.Lang.Parser
+      HOPL.MUTABLE_PAIRS.Lang.Syntax
+      HOPL.MUTABLE_PAIRS.Store
       HOPL.PROC.DataStructures
       HOPL.PROC.Environment
       HOPL.PROC.Interp
       HOPL.PROC.Lang.Lexer
       HOPL.PROC.Lang.Parser
       HOPL.PROC.Lang.Syntax
+      HOPL.SIMPLE_STATEMENT.DataStructures
+      HOPL.SIMPLE_STATEMENT.Environment
+      HOPL.SIMPLE_STATEMENT.Interp
+      HOPL.SIMPLE_STATEMENT.Lang.Lexer
+      HOPL.SIMPLE_STATEMENT.Lang.Parser
+      HOPL.SIMPLE_STATEMENT.Lang.Syntax
+      HOPL.SIMPLE_STATEMENT.Store
       HOPL.Types
   other-modules:
       Paths_hopl3_code
@@ -106,7 +120,9 @@ test-suite hopl3-test
       ImplicitRefsSpec
       LetrecSpec
       LetSpec
+      MutablePairsSpec
       ProcSpec
+      SimpleStatementSpec
       Paths_hopl3_code
   hs-source-dirs:
       test
