@@ -1,8 +1,10 @@
 {-
  -  HOPL/SIMPLE_STATEMENT/Lang/Parser.hs
  -
- -  Reference implementation of the toy language HOPL.LET by Mitchell Wand.
- -  This module provides the grammatical specification for LET.
+ -  Reference implementation of the toy language HOPL.SIMPLE_STATEMENT based
+ -  on an exercise from the EOPL3 textbook by Mitchell Wand.
+ -
+ -  This module provides the grammatical specification for the language.
  -
  -  Author: Matthew A Johnson
  -}
@@ -34,7 +36,7 @@ contents p = do
   eof
   return r
 
-{- Grammar for the PROC language -}
+{- Grammar for the SIMPLE_STATEMENT language -}
 
 program :: Parser Pgm
 program = Pgm <$> statement
@@ -50,7 +52,7 @@ statement =
       MultiStmt
         <$> (symbol "{" >> sepBy statement (symbol ";") <* symbol "}"),
       IfStmt
-        <$> (reserved "print" >> expression)
+        <$> (reserved "if" >> expression)
         <*> statement
         <*> statement,
       WhileStmt

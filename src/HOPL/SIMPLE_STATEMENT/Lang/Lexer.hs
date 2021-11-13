@@ -1,8 +1,10 @@
 {-
  -  HOPL/SIMPLE_STATEMENT/Lang/Lexer.hs
  -
- -  Reference implementation of the toy language HOPL.LET by Mitchell Wand.
- -  This module provides the lexical specification for LET.
+ -  Reference implementation of the toy language HOPL.SIMPLE_STATEMENT based
+ -  on an exercise from the EOPL3 textbook by Mitchell Wand.
+ -
+ -  This module provides the lexical specification for the language.
  -
  -  Author: Matthew A Johnson
  -}

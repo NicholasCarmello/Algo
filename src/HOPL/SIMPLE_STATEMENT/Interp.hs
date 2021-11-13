@@ -1,7 +1,9 @@
 {-
  -  HOPL/SIMPLE_STATEMENT/Interp.hs
  -
- -  Reference implementation of the toy language HOPL.LET by Mitchell Wand.
+ -  Reference implementation of the toy language HOPL.SIMPLE_STATEMENT based
+ -  on an exercise from the EOPL3 textbook by Mitchell Wand.
+ -
  -  This module provides the core interpreter implementation.
  -
  -  Author: Matthew A Johnson
@@ -60,19 +62,19 @@ resultOf (MultiStmt []) ρ σ = return σ
 resultOf (MultiStmt (stmt : stmts)) ρ σ = do
   σ₁ <- resultOf stmt ρ σ
   resultOf (MultiStmt stmts) ρ σ₁
-resultOf (IfStmt test conseq altern) ρ σ = if z then σ₂ else σ₃
+resultOf (IfStmt test conseq altern) ρ σ = if q then σ₂ else σ₃
   where
-    Answer (BoolVal z) σ₁ = valueOf test ρ σ
+    Answer (BoolVal q) σ₁ = valueOf test ρ σ
     σ₂ = resultOf conseq ρ σ₁
     σ₃ = resultOf altern ρ σ₁
 resultOf stmt@(WhileStmt test body) ρ σ =
-  if z
+  if q
     then do
       σ₂ <- resultOf body ρ σ₁
       resultOf stmt ρ σ₂
     else return σ₁
   where
-    Answer (BoolVal z) σ₁ = valueOf test ρ σ
+    Answer (BoolVal q) σ₁ = valueOf test ρ σ
 
 -- Recursive scoping - later declarations may refer to earlier ones
 resultOf (BlockStmt [] stmt) ρ σ = resultOf stmt ρ σ

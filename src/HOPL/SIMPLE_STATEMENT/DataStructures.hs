@@ -1,9 +1,11 @@
 {-
  -  HOPL/SIMPLE_STATEMENT/DataStructures.hs
  -
- -  Reference implementation of the toy language LET by Mitchell Wand.
+ -  Reference implementation of the toy language HOPL.SIMPLE_STATEMENT based
+ -  on an exercise from the EOPL3 textbook by Mitchell Wand.
+ -
  -  This module provides types for representing the values and other
- -  supporting data structures in LET.
+ -  supporting data structures.
  -
  -  Author: Matthew A Johnson
  -}
@@ -36,7 +38,7 @@ type Pair1 = (Reference, Reference)
 
 type Pair2 = Reference
 
--- Expressed values may be th result of an expression.
+-- Expressed values may be the result of an expression.
 data ExpVal
   = NumVal {expvalToNum :: Integer}
   | BoolVal {expvalToBool :: Bool}

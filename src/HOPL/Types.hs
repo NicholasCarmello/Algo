@@ -1,7 +1,8 @@
 {-
  -  HOPL/Types.hs
  -
- -  Reference implementation of the toy language HOPL.LET by Mitchell Wand.
+ -  Reference implementation of the languages from EOPL3 by Mitchell Wand.
+ -
  -  This module provides type definitions used throughout other sources.
  -
  -  Author: Matthew A Johnson
