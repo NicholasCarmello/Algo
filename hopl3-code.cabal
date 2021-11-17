@@ -4,7 +4,7 @@ cabal-version: 2.2
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: a9393ebc8d810150efd41d2c28f787c8fb18775da9b0d3ca10bc885e971544d7
+-- hash: f430328fcdd63b689c81a995e17922198e07f33e18ad676577ffa75613c3d8c7
 
 name:           hopl3-code
 version:        0.1.1.0
@@ -40,6 +40,15 @@ library
       HOPL.CALL_BY_REFERENCE.Lang.Parser
       HOPL.CALL_BY_REFERENCE.Lang.Syntax
       HOPL.CALL_BY_REFERENCE.Store
+      HOPL.CHECKED.Checker
+      HOPL.CHECKED.DataStructures
+      HOPL.CHECKED.Environment
+      HOPL.CHECKED.Interp
+      HOPL.CHECKED.Lang.Lexer
+      HOPL.CHECKED.Lang.Parser
+      HOPL.CHECKED.Lang.Syntax
+      HOPL.CHECKED.Type
+      HOPL.CHECKED.TypeEnv
       HOPL.EXPLICIT_REFS.DataStructures
       HOPL.EXPLICIT_REFS.Environment
       HOPL.EXPLICIT_REFS.Interp
