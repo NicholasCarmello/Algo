@@ -13,6 +13,8 @@ import qualified LetrecSpec as LETREC
 import qualified ExplicitRefsSpec as EXPLICIT_REFS
 import qualified ImplicitRefsSpec as IMPLICIT_REFS
 import qualified MutablePairsSpec as MUTABLE_PAIRS
+import qualified CallByReferenceSpec as CALL_BY_REFERENCE
+import qualified CallByNeedSpec as CALL_BY_NEED
 import Test.Tasty.Hspec (hspec)
 
 main = do
@@ -22,3 +24,5 @@ main = do
   hspec EXPLICIT_REFS.spec
   hspec IMPLICIT_REFS.spec
   hspec MUTABLE_PAIRS.spec
+  hspec CALL_BY_REFERENCE.spec
+  hspec CALL_BY_NEED.spec

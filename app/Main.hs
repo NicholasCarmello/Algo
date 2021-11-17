@@ -1,7 +1,9 @@
 {-
  -  Main.hs
  -
- -  Reference implementation of the toy language HOPL.LET by Mitchell Wand.
+ -  Reference implementation of the toy languages from the
+ -  EOPL3 textbook by Mitchell Wand.
+ -
  -  This module provides routines for executables based on HOPL languages.
  -
  -  Author: Matthew A Johnson
@@ -11,6 +13,8 @@ module Main where
 import Control.Exception (ErrorCall, catch)
 import Control.Monad (unless, void)
 import Control.Monad.Trans (liftIO)
+import qualified HOPL.CALL_BY_NEED.Interp as CALL_BY_NEED (interp)
+import qualified HOPL.CALL_BY_REFERENCE.Interp as CALL_BY_REFERENCE (interp)
 import qualified HOPL.EXPLICIT_REFS.Interp as EXPLICIT_REFS (interp)
 import qualified HOPL.IMPLICIT_REFS.Interp as IMPLICIT_REFS (interp)
 import qualified HOPL.LET.Interp as LET (interp)
@@ -48,6 +52,8 @@ repl = do
                   "EXPLICIT_REFS" -> doInterp EXPLICIT_REFS.interp input
                   "IMPLICIT_REFS" -> doInterp IMPLICIT_REFS.interp input
                   "MUTABLE_PAIRS" -> doInterp MUTABLE_PAIRS.interp input
+                  "CALL_BY_REFERENCE" -> doInterp CALL_BY_REFERENCE.interp input
+                  "CALL_BY_NEED" -> doInterp CALL_BY_NEED.interp input
                   "SIMPLE_STATEMENT" -> doInterp' SIMPLE_STATEMENT.interp input
               )
               >> loop lang

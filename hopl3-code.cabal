@@ -4,7 +4,7 @@ cabal-version: 2.2
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: ecad28ae875ac1e49e3a704a910dd63b81ee6ad13563dc2c75d2c753898a752c
+-- hash: a9393ebc8d810150efd41d2c28f787c8fb18775da9b0d3ca10bc885e971544d7
 
 name:           hopl3-code
 version:        0.1.1.0
@@ -26,6 +26,20 @@ source-repository head
 
 library
   exposed-modules:
+      HOPL.CALL_BY_NEED.DataStructures
+      HOPL.CALL_BY_NEED.Environment
+      HOPL.CALL_BY_NEED.Interp
+      HOPL.CALL_BY_NEED.Lang.Lexer
+      HOPL.CALL_BY_NEED.Lang.Parser
+      HOPL.CALL_BY_NEED.Lang.Syntax
+      HOPL.CALL_BY_NEED.Store
+      HOPL.CALL_BY_REFERENCE.DataStructures
+      HOPL.CALL_BY_REFERENCE.Environment
+      HOPL.CALL_BY_REFERENCE.Interp
+      HOPL.CALL_BY_REFERENCE.Lang.Lexer
+      HOPL.CALL_BY_REFERENCE.Lang.Parser
+      HOPL.CALL_BY_REFERENCE.Lang.Syntax
+      HOPL.CALL_BY_REFERENCE.Store
       HOPL.EXPLICIT_REFS.DataStructures
       HOPL.EXPLICIT_REFS.Environment
       HOPL.EXPLICIT_REFS.Interp
@@ -116,13 +130,14 @@ test-suite hopl3-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      CallByNeedSpec
+      CallByReferenceSpec
       ExplicitRefsSpec
       ImplicitRefsSpec
       LetrecSpec
       LetSpec
       MutablePairsSpec
       ProcSpec
-      SimpleStatementSpec
       Paths_hopl3_code
   hs-source-dirs:
       test
