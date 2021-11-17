@@ -1,8 +1,10 @@
 {-
  -  HOPL/EXPLICIT_REFS/Parser.hs
  -
- -  Reference implementation of the toy language HOPL.LET by Mitchell Wand.
- -  This module provides the grammatical specification for LET.
+ -  Reference implementation of the toy language EXPLICIT_REFS from the
+ -  EOPL3 textbook by Mitchell Wand.
+ -
+ -  This module provides the grammatical specification for EXPLICIT_REFS.
  -
  -  Author: Matthew A Johnson
  -}

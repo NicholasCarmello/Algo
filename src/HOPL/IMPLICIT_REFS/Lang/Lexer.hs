@@ -1,24 +1,30 @@
 {-
  -  HOPL/IMPLICIT_REFS/Lexer.hs
  -
- -  Reference implementation of the toy language HOPL.LET by Mitchell Wand.
- -  This module provides the lexical specification for LET.
+ -  Reference implementation of the toy language IMPLICIT_REFS from the
+ -  EOPL3 textbook by Mitchell Wand.
+ -
+ -  This module provides the lexical specification for IMPLICIT_REFS.
  -
  -  Author: Matthew A Johnson
  -}
 module HOPL.IMPLICIT_REFS.Lang.Lexer where
 
+import Text.Parsec ((<|>))
+import Text.Parsec.Char (alphaNum, letter, oneOf)
 import Text.Parsec.Language (emptyDef)
 import Text.Parsec.String (Parser)
 import qualified Text.Parsec.Token as Tok
 
-letLexer :: Tok.TokenParser ()
-letLexer =
-  Tok.makeTokenParser $ letDef
+implicitRefsLexer :: Tok.TokenParser ()
+implicitRefsLexer =
+  Tok.makeTokenParser $ implicitRefsDef
 
-letDef =
+implicitRefsDef =
   emptyDef
-    { Tok.commentLine = "#",
+    { Tok.commentLine = "%",
+      Tok.identStart = letter,
+      Tok.identLetter = alphaNum <|> oneOf "_-?",
       Tok.reservedOpNames = ["=", "-"],
       Tok.reservedNames =
         [ "let",
@@ -36,25 +42,25 @@ letDef =
     }
 
 integer :: Parser Integer
-integer = Tok.integer letLexer
+integer = Tok.integer implicitRefsLexer
 
 symbol :: String -> Parser String
-symbol = Tok.symbol letLexer
+symbol = Tok.symbol implicitRefsLexer
 
 parens :: Parser a -> Parser a
-parens = Tok.parens letLexer
+parens = Tok.parens implicitRefsLexer
 
 commaSep :: Parser a -> Parser [a]
-commaSep = Tok.commaSep letLexer
+commaSep = Tok.commaSep implicitRefsLexer
 
 identifier :: Parser String
-identifier = Tok.identifier letLexer
+identifier = Tok.identifier implicitRefsLexer
 
 reserved :: String -> Parser ()
-reserved = Tok.reserved letLexer
+reserved = Tok.reserved implicitRefsLexer
 
 reservedOp :: String -> Parser ()
-reservedOp = Tok.reservedOp letLexer
+reservedOp = Tok.reservedOp implicitRefsLexer
 
 whiteSpace :: Parser ()
-whiteSpace = Tok.whiteSpace letLexer
+whiteSpace = Tok.whiteSpace implicitRefsLexer

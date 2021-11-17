@@ -1,8 +1,10 @@
 {-
  -  MutablePairsSpec.hs
  -
- -  Reference implementation of the toy language HOPL.LET by Mitchell Wand.
- -  This module provides a test suite for the PROC interpreter.
+ -  Reference implementation of the toy language MUTABLE_PAIRS from the
+ -  EOPL3 textbook by Mitchell Wand.
+ -
+ -  This module provides a test suite for the MUTABLE_PAIRS interpreter.
  -
  -  Author: Matthew A Johnson
  -}
@@ -193,6 +195,7 @@ spec =
           \              end \
           \   in (f glo)"
           `shouldBe` NumVal 88
+
     describe "Exception tests" $ do
       specify "no-bool-to-diff-1" $
         printInterp "-(zero?(0),1)" `shouldThrow` anyException

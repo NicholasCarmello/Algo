@@ -1,15 +1,15 @@
 {-
  -  HOPL/EXPLICIT_REFS/Store.hs
  -
- -  Reference implementation of the toy language LET by Mitchell Wand.
+ -  Reference implementation of the toy language EXPLICIT_REFS from the
+ -  EOPL3 textbook by Mitchell Wand.
+ -
  -  This module provides the "world's dumbest model of the store:  the store
  -  is a list and a reference is number which denotes a position in the list."
  -
  -  Author: Matthew A Johnson
  -}
 module HOPL.EXPLICIT_REFS.Store
--- (provide initialize-store! reference? newref deref setref!
---     instrument-newref get-store-as-list)
   ( Store,
     emptyStore,
     newref,

@@ -1,8 +1,10 @@
 {-
  -  HOPL/MUTABLE_PAIRS/Lang/Syntax.hs
  -
- -  Reference implementation of the toy language HOPL.LET by Mitchell Wand.
- -  This module provides the abstract syntax representation for LET.
+ -  Reference implementation of the toy language MUTABLE_PAIRS from the
+ -  EOPL3 textbook by Mitchell Wand.
+ -
+ -  This module provides the abstract syntax representation for MUTABLE_PAIRS.
  -
  -  Author: Matthew A Johnson
  -}

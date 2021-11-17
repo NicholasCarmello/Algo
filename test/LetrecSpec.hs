@@ -1,8 +1,10 @@
 {-
  -  ProcSpec.hs
  -
- -  Reference implementation of the toy language HOPL.LET by Mitchell Wand.
- -  This module provides a test suite for the PROC interpreter.
+ -  Reference implementation of the toy language LETREC from the
+ -  EOPL3 textbook by Mitchell Wand.
+ -
+ -  This module provides a test suite for the LETREC interpreter.
  -
  -  Author: Matthew A Johnson
  -}

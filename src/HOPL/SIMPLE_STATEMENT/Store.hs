@@ -10,8 +10,6 @@
  -  Author: Matthew A Johnson
  -}
 module HOPL.SIMPLE_STATEMENT.Store
--- (provide initialize-store! reference? newref deref setref!
---     instrument-newref get-store-as-list)
   ( Store,
     emptyStore,
     newref,

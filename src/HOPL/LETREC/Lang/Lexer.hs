@@ -1,24 +1,30 @@
 {-
  -  HOPL/LETREC/Lexer.hs
  -
- -  Reference implementation of the toy language HOPL.LET by Mitchell Wand.
- -  This module provides the lexical specification for LET.
+ -  Reference implementation of the toy language LETREC from the
+ -  EOPL3 textbook by Mitchell Wand.
+ -
+ -  This module provides the lexical specification for LETREC.
  -
  -  Author: Matthew A Johnson
  -}
 module HOPL.LETREC.Lang.Lexer where
 
+import Text.Parsec ((<|>))
+import Text.Parsec.Char (alphaNum, letter, oneOf)
 import Text.Parsec.Language (emptyDef)
 import Text.Parsec.String (Parser)
 import qualified Text.Parsec.Token as Tok
 
-letLexer :: Tok.TokenParser ()
-letLexer =
-  Tok.makeTokenParser $ letDef
+letrecLexer :: Tok.TokenParser ()
+letrecLexer =
+  Tok.makeTokenParser $ letrecDef
 
-letDef =
+letrecDef =
   emptyDef
-    { Tok.commentLine = "#",
+    { Tok.commentLine = "%",
+      Tok.identStart = letter,
+      Tok.identLetter = alphaNum <|> oneOf "_-?",
       Tok.reservedOpNames =
         [ "=",
           "-",
@@ -61,25 +67,25 @@ letDef =
     }
 
 integer :: Parser Integer
-integer = Tok.integer letLexer
+integer = Tok.integer letrecLexer
 
 symbol :: String -> Parser String
-symbol = Tok.symbol letLexer
+symbol = Tok.symbol letrecLexer
 
 parens :: Parser a -> Parser a
-parens = Tok.parens letLexer
+parens = Tok.parens letrecLexer
 
 commaSep :: Parser a -> Parser [a]
-commaSep = Tok.commaSep letLexer
+commaSep = Tok.commaSep letrecLexer
 
 identifier :: Parser String
-identifier = Tok.identifier letLexer
+identifier = Tok.identifier letrecLexer
 
 reserved :: String -> Parser ()
-reserved = Tok.reserved letLexer
+reserved = Tok.reserved letrecLexer
 
 reservedOp :: String -> Parser ()
-reservedOp = Tok.reservedOp letLexer
+reservedOp = Tok.reservedOp letrecLexer
 
 whiteSpace :: Parser ()
-whiteSpace = Tok.whiteSpace letLexer
+whiteSpace = Tok.whiteSpace letrecLexer

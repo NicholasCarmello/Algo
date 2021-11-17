@@ -10,17 +10,21 @@
  -}
 module HOPL.SIMPLE_STATEMENT.Lang.Lexer where
 
+import Text.Parsec ((<|>))
+import Text.Parsec.Char (alphaNum, letter, oneOf)
 import Text.Parsec.Language (emptyDef)
 import Text.Parsec.String (Parser)
 import qualified Text.Parsec.Token as Tok
 
-letLexer :: Tok.TokenParser ()
-letLexer =
-  Tok.makeTokenParser $ letDef
+simpleStatementLexer :: Tok.TokenParser ()
+simpleStatementLexer =
+  Tok.makeTokenParser $ simpleStatementDef
 
-letDef =
+simpleStatementDef =
   emptyDef
     { Tok.commentLine = "%",
+      Tok.identStart = letter,
+      Tok.identLetter = alphaNum <|> oneOf "_-?",
       Tok.reservedOpNames = ["=", "-"],
       Tok.reservedNames =
         [ "let",
@@ -46,25 +50,25 @@ letDef =
     }
 
 integer :: Parser Integer
-integer = Tok.integer letLexer
+integer = Tok.integer simpleStatementLexer
 
 symbol :: String -> Parser String
-symbol = Tok.symbol letLexer
+symbol = Tok.symbol simpleStatementLexer
 
 parens :: Parser a -> Parser a
-parens = Tok.parens letLexer
+parens = Tok.parens simpleStatementLexer
 
 commaSep :: Parser a -> Parser [a]
-commaSep = Tok.commaSep letLexer
+commaSep = Tok.commaSep simpleStatementLexer
 
 identifier :: Parser String
-identifier = Tok.identifier letLexer
+identifier = Tok.identifier simpleStatementLexer
 
 reserved :: String -> Parser ()
-reserved = Tok.reserved letLexer
+reserved = Tok.reserved simpleStatementLexer
 
 reservedOp :: String -> Parser ()
-reservedOp = Tok.reservedOp letLexer
+reservedOp = Tok.reservedOp simpleStatementLexer
 
 whiteSpace :: Parser ()
-whiteSpace = Tok.whiteSpace letLexer
+whiteSpace = Tok.whiteSpace simpleStatementLexer

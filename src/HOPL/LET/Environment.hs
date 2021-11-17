@@ -2,10 +2,9 @@
  -  HOPL/LET/Environment.hs
  -
  -  Reference implementation of the toy language LET by Mitchell Wand.
- -  This module provides an abstract data type for symbol-to-value mappings.
- -  We include several implementations for illustrative purposes, including
- -  a recursive data-structure, an association-list, and an efficient ribcage
- -  representation.
+ -
+ -  This module provides an abstract data type for symbol-to-value mappings,
+ -  based on a recursive data-structure representation.
  -
  -  Author: Matthew A Johnson
  -}

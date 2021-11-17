@@ -1,9 +1,11 @@
 {-
  -  HOPL/LETREC/DataStructures.hs
  -
- -  Reference implementation of the toy language LET by Mitchell Wand.
+ -  Reference implementation of the toy language LETREC from the
+ -  EOPL3 textbook by Mitchell Wand.
+ -
  -  This module provides types for representing the values and other
- -  supporting data structures in LET.
+ -  supporting data structures in LETREC.
  -
  -  Author: Matthew A Johnson
  -}

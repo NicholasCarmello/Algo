@@ -1,8 +1,10 @@
 {-
  -  HOPL/PROC/Syntax.hs
  -
- -  Reference implementation of the toy language HOPL.LET by Mitchell Wand.
- -  This module provides the abstract syntax representation for LET.
+ -  Reference implementation of the toy language PROC from the
+ -  EOPL3 textbook by Mitchell Wand.
+ -
+ -  This module provides the abstract syntax representation for PROC.
  -
  -  Author: Matthew A Johnson
  -}

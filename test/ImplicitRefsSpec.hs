@@ -1,8 +1,10 @@
 {-
  -  ImplicitRefsSpec.hs
  -
- -  Reference implementation of the toy language HOPL.LET by Mitchell Wand.
- -  This module provides a test suite for the PROC interpreter.
+ -  Reference implementation of the toy language IMPLICIT_REFS from the
+ -  EOPL3 textbook by Mitchell Wand.
+ -
+ -  This module provides a test suite for the IMPLICIT_REFS interpreter.
  -
  -  Author: Matthew A Johnson
  -}

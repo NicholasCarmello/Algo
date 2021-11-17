@@ -1,15 +1,15 @@
 {-
  -  HOPL/MUTABLE_PAIRS/Store.hs
  -
- -  Reference implementation of the toy language LET by Mitchell Wand.
+ -  Reference implementation of the toy language MUTABLE_PAIRS from the
+ -  EOPL3 textbook by Mitchell Wand.
+ -
  -  This module provides the "world's dumbest model of the store:  the store
  -  is a list and a reference is number which denotes a position in the list."
  -
  -  Author: Matthew A Johnson
  -}
 module HOPL.MUTABLE_PAIRS.Store
--- (provide initialize-store! reference? newref deref setref!
---     instrument-newref get-store-as-list)
   ( Store,
     emptyStore,
     newref,

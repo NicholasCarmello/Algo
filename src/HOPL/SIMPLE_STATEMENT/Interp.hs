@@ -1,8 +1,8 @@
 {-
  -  HOPL/SIMPLE_STATEMENT/Interp.hs
  -
- -  Reference implementation of the toy language HOPL.SIMPLE_STATEMENT based
- -  on an exercise from the EOPL3 textbook by Mitchell Wand.
+ -  Reference implementation of the toy language SIMPLE_STATEMENT based on an
+ -  exercise from the EOPL3 textbook by Mitchell Wand.
  -
  -  This module provides the core interpreter implementation.
  -

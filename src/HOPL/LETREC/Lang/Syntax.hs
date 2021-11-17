@@ -1,8 +1,10 @@
 {-
  -  HOPL/LETREC/Syntax.hs
  -
- -  Reference implementation of the toy language HOPL.LET by Mitchell Wand.
- -  This module provides the abstract syntax representation for LET.
+ -  Reference implementation of the toy language LETREC from the
+ -  EOPL3 textbook by Mitchell Wand.
+ -
+ -  This module provides the abstract syntax representation for LETREC.
  -
  -  Author: Matthew A Johnson
  -}
