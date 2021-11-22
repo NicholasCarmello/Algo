@@ -10,9 +10,8 @@
  -}
 module HOPL.CHECKED.Interp
   ( checkAndInterp,
-    interp,
+    checkAndInterpWith,
     interpWith,
-    interpWith',
   )
 where
 

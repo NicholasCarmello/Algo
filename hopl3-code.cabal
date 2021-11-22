@@ -4,7 +4,7 @@ cabal-version: 2.2
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: f430328fcdd63b689c81a995e17922198e07f33e18ad676577ffa75613c3d8c7
+-- hash: bd5654a2316ad7f4887e710179bcca43383d793ed555a441a717c0fefad69856
 
 name:           hopl3-code
 version:        0.1.1.0
@@ -141,6 +141,7 @@ test-suite hopl3-test
   other-modules:
       CallByNeedSpec
       CallByReferenceSpec
+      CheckedSpec
       ExplicitRefsSpec
       ImplicitRefsSpec
       LetrecSpec
