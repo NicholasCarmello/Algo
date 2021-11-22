@@ -1,7 +1,9 @@
 {-
  -  LetSpec.hs
  -
- -  Reference implementation of the toy language HOPL.LET by Mitchell Wand.
+ -  Reference implementation of the toy language LET from the
+ -  EOPL3 textbook by Mitchell Wand.
+ -
  -  This module provides a test suite for the LET interpreter.
  -
  -  Author: Matthew A Johnson

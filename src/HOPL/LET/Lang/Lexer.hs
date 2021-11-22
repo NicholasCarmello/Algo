@@ -8,6 +8,8 @@
  -}
 module HOPL.LET.Lang.Lexer where
 
+import Text.Parsec ((<|>))
+import Text.Parsec.Char (alphaNum, letter, oneOf)
 import Text.Parsec.Language (emptyDef)
 import Text.Parsec.String (Parser)
 import qualified Text.Parsec.Token as Tok
@@ -18,9 +20,11 @@ letLexer =
 
 letDef =
   emptyDef
-    { Tok.commentLine = "#",
-      Tok.reservedOpNames = ["=", "-","+"],
-      Tok.reservedNames = ["let", "in", "if", "then", "else", "zero?","even"]
+    { Tok.commentLine = "%",
+      Tok.identStart = letter,
+      Tok.identLetter = alphaNum <|> oneOf "_-?",
+      Tok.reservedOpNames = ["=", "-"],
+      Tok.reservedNames = ["let", "in", "if", "then", "else", "zero?"]
     }
 
 integer :: Parser Integer

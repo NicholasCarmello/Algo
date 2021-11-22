@@ -1,7 +1,9 @@
 {-
  -  ProcSpec.hs
  -
- -  Reference implementation of the toy language HOPL.LET by Mitchell Wand.
+ -  Reference implementation of the toy language PROC from the
+ -  EOPL3 textbook by Mitchell Wand.
+ -
  -  This module provides a test suite for the PROC interpreter.
  -
  -  Author: Matthew A Johnson

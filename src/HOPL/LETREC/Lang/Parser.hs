@@ -1,8 +1,10 @@
 {-
  -  HOPL/LETREC/Parser.hs
  -
- -  Reference implementation of the toy language HOPL.LET by Mitchell Wand.
- -  This module provides the grammatical specification for LET.
+ -  Reference implementation of the toy language LETREC from the
+ -  EOPL3 textbook by Mitchell Wand.
+ -
+ -  This module provides the grammatical specification for LETREC.
  -
  -  Author: Matthew A Johnson
  -}
@@ -14,7 +16,7 @@ where
 
 import HOPL.LETREC.Lang.Lexer
 import HOPL.LETREC.Lang.Syntax (Exp (..), Pgm (..))
-import Text.Parsec (ParseError, choice, eof, parse, try)
+import Text.Parsec (ParseError, choice, eof, many1, parse, sepBy, try)
 import qualified Text.Parsec.Expr as Ex
 import Text.Parsec.String (Parser)
 import Data.Type.Coercion (sym)
@@ -43,25 +45,110 @@ program = Pgm <$> expression
 expression :: Parser Exp
 expression =
   (choice . map try)
-    [ LetExp <$> (reserved "let" >> identifier)
+    [ -- Variable declarations
+      UnpackExp
+        <$> (reserved "unpack" >> many1 identifier)
         <*> (reserved "=" >> expression)
         <*> (reserved "in" >> expression),
-      LetrecExp <$> (reserved "letrec" >> identifier)
-        <*> (parens identifier)
+      LetExp
+        <$> (reserved "let" >> identifier)
         <*> (reserved "=" >> expression)
         <*> (reserved "in" >> expression),
-      IfExp <$> (reserved "if" >> expression)
+      LetrecExp
+        <$> (reserved "letrec" >> identifier)
+        <*> parens identifier
+        <*> (reserved "=" >> expression)
+        <*> (reserved "in" >> expression),
+      -- Control expressions
+      IfExp
+        <$> (reserved "if" >> expression)
         <*> (reserved "then" >> expression)
         <*> (reserved "else" >> expression),
-      CallExp <$> (symbol "(" >> expression)
-        <*> (expression <* symbol ")"),
-      ProcExp <$> (reserved "proc" >> parens identifier)
+      -- Function definition
+      ProcExp
+        <$> (reserved "proc" >> parens identifier)
         <*> expression,
-      DiffExp <$> (reservedOp "-" >> symbol "(" >> expression)
+      -- Function call
+      CallExp
+        <$> (symbol "(" >> expression)
+        <*> (expression <* symbol ")"),
+      -- List constructors
+      EmptyExp
+        <$ reserved "emptylist",
+      ListConsExp
+        <$> (reserved "cons" >> symbol "(" >> expression)
         <*> (symbol "," >> expression <* symbol ")"),
-      EvenExp <$> (reserved "even" >> symbol "(" >> expression <* symbol ")"),
-      LetRecEvenExp <$> (reserved "letrec" >> reserved "even" >> symbol "(" >> expression <* symbol ")"),
-      IsZeroExp <$> (reserved "zero?" >> parens expression),
-      ConstExp <$> integer,
-      VarExp <$> identifier
+      ListExp
+        <$> (reserved "list" >> parens (sepBy expression (symbol ","))),
+      -- List observers
+      IsNullExp
+        <$> (reserved "null?" >> parens expression),
+      CarExp
+        <$> (reserved "car" >> parens expression),
+      CdrExp
+        <$> (reserved "cdr" >> parens expression),
+      -- Logical operators
+      AndExp
+        <$> (reservedOp "&&" >> symbol "(" >> expression)
+        <*> (symbol "," >> expression <* symbol ")"),
+      OrExp
+        <$> (reservedOp "||" >> symbol "(" >> expression)
+        <*> (symbol "," >> expression <* symbol ")"),
+      NotExp
+        <$> (reserved "not" >> parens expression),
+      -- Relational operators
+      IsEqualExp
+        <$> (reservedOp "==" >> symbol "(" >> expression)
+        <*> (symbol "," >> expression <* symbol ")"),
+      IsNotEqualExp
+        <$> (reservedOp "==" >> symbol "(" >> expression)
+        <*> (symbol "," >> expression <* symbol ")"),
+      IsLessExp
+        <$> (reservedOp "<" >> symbol "(" >> expression)
+        <*> (symbol "," >> expression <* symbol ")"),
+      IsGreaterExp
+        <$> (reservedOp ">" >> symbol "(" >> expression)
+        <*> (symbol "," >> expression <* symbol ")"),
+      IsLessEqExp
+        <$> (reservedOp "<=" >> symbol "(" >> expression)
+        <*> (symbol "," >> expression <* symbol ")"),
+      IsGreaterEqExp
+        <$> (reservedOp ">=" >> symbol "(" >> expression)
+        <*> (symbol "," >> expression <* symbol ")"),
+      -- Arithmetic operators
+      DiffExp
+        <$> (reservedOp "-" >> symbol "(" >> expression)
+        <*> (symbol "," >> expression <* symbol ")"),
+      SumExp
+        <$> (reservedOp "+" >> symbol "(" >> expression)
+        <*> (symbol "," >> expression <* symbol ")"),
+      ProdExp
+        <$> (reservedOp "*" >> symbol "(" >> expression)
+        <*> (symbol "," >> expression <* symbol ")"),
+      DivExp
+        <$> (reservedOp "/" >> symbol "(" >> expression)
+        <*> (symbol "," >> expression <* symbol ")"),
+      ModExp
+        <$> (reservedOp "%" >> symbol "(" >> expression)
+        <*> (symbol "," >> expression <* symbol ")"),
+      MinusExp
+        <$> (reserved "minus" >> parens expression),
+      -- Arithmetic/numeric predicates
+      IsZeroExp
+        <$> (reserved "zero?" >> parens expression),
+      IsNegExp
+        <$> (reserved "neg?" >> parens expression),
+      IsPosExp
+        <$> (reserved "pos?" >> parens expression),
+      -- Boolean literals
+      TrueExp
+        <$ reserved "true",
+      FalseExp
+        <$ reserved "false",
+      -- Integer literal
+      ConstExp
+        <$> integer,
+      -- Variable reference
+      VarExp
+        <$> identifier
     ]

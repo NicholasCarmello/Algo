@@ -1,9 +1,11 @@
 {-
  -  HOPL/LETREC/DataStructures.hs
  -
- -  Reference implementation of the toy language LET by Mitchell Wand.
+ -  Reference implementation of the toy language LETREC from the
+ -  EOPL3 textbook by Mitchell Wand.
+ -
  -  This module provides types for representing the values and other
- -  supporting data structures in LET.
+ -  supporting data structures in LETREC.
  -
  -  Author: Matthew A Johnson
  -}
@@ -27,12 +29,14 @@ data ExpVal
   = NumVal {expvalToNum :: Integer}
   | BoolVal {expvalToBool :: Bool}
   | ProcVal {expvalToProc :: Procedure}
+  | ListVal {expvalToList :: [ExpVal]}
   deriving (Eq)
 
 instance Show ExpVal where
   show (NumVal n) = "(NumVal " ++ show n ++ ")"
   show (BoolVal z) = "(BoolVal " ++ show z ++ ")"
   show (ProcVal f) = "(ProcVal " ++ show f ++ ")"
+  show (ListVal vs) = "(ListVal " ++ show vs ++ ")"
 
 {- Recursive "data structure" representation for environments -}
 
