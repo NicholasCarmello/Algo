@@ -71,6 +71,6 @@ envToList (Environment x v savedEnv) = (x, v) : envToList savedEnv
 {- Representation of closed procedure (i.e. closure) -}
 
 data Procedure
-  = ClosedProcedure {procVar :: Id, procBody :: Exp, procEnv :: Environment}
-  | OpenProcedure {procVar :: Id, procBody :: Exp}
+  = ClosedProcedure {procVars :: [Id], procBody :: Exp, procEnv :: Environment}
+  | OpenProcedure {procVars :: [Id], procBody :: Exp}
   deriving (Eq, Show)

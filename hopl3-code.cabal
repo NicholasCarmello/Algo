@@ -4,7 +4,7 @@ cabal-version: 2.2
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: bd5654a2316ad7f4887e710179bcca43383d793ed555a441a717c0fefad69856
+-- hash: 9aeeb383fc9755d63fbb776fc1e1871dd4cefe0c5a9c6a708d4a0b46a7045562
 
 name:           hopl3-code
 version:        0.1.1.0
@@ -148,6 +148,7 @@ test-suite hopl3-test
       LetSpec
       MutablePairsSpec
       ProcSpec
+      SimpleStatementSpec
       Paths_hopl3_code
   hs-source-dirs:
       test
