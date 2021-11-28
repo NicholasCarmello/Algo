@@ -4,7 +4,7 @@ cabal-version: 2.2
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 9aeeb383fc9755d63fbb776fc1e1871dd4cefe0c5a9c6a708d4a0b46a7045562
+-- hash: 8fff6037316552f1796f4e774bfc4dbc087ad55a9d190f841bab0afdbb11d06a
 
 name:           hopl3-code
 version:        0.1.1.0
@@ -63,6 +63,17 @@ library
       HOPL.IMPLICIT_REFS.Lang.Parser
       HOPL.IMPLICIT_REFS.Lang.Syntax
       HOPL.IMPLICIT_REFS.Store
+      HOPL.INFERRED.DataStructures
+      HOPL.INFERRED.Environment
+      HOPL.INFERRED.Inferrer
+      HOPL.INFERRED.Interp
+      HOPL.INFERRED.Lang.Lexer
+      HOPL.INFERRED.Lang.Parser
+      HOPL.INFERRED.Lang.Syntax
+      HOPL.INFERRED.Substitution
+      HOPL.INFERRED.Type
+      HOPL.INFERRED.TypeEnv
+      HOPL.INFERRED.Unifier
       HOPL.LET.DataStructures
       HOPL.LET.Environment
       HOPL.LET.Interp
@@ -102,7 +113,9 @@ library
       src
   build-depends:
       base >=4.7 && <5
+    , mtl
     , parsec >=3.1
+    , random
   default-language: Haskell2010
 
 executable hopl3-repl
@@ -118,6 +131,7 @@ executable hopl3-repl
     , hopl3-code
     , mtl >=2.2
     , parsec >=3.1
+    , random
   default-language: Haskell2010
 
 executable hopl3-run
@@ -133,6 +147,7 @@ executable hopl3-run
     , hopl3-code
     , mtl >=2.2
     , parsec >=3.1
+    , random
   default-language: Haskell2010
 
 test-suite hopl3-test
@@ -144,6 +159,7 @@ test-suite hopl3-test
       CheckedSpec
       ExplicitRefsSpec
       ImplicitRefsSpec
+      InferredSpec
       LetrecSpec
       LetSpec
       MutablePairsSpec
@@ -159,6 +175,7 @@ test-suite hopl3-test
     , hopl3-code
     , mtl >=2.2
     , parsec >=3.1
+    , random
     , tasty
     , tasty-hspec
     , tasty-hunit
