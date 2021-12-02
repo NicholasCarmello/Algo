@@ -8,7 +8,6 @@
  -}
 module HOPL.INFERRED.Inferrer (check, checkWith, parseToplevel, typeOfProgram) where
 
-import Control.Monad.State
 import HOPL.INFERRED.Environment
 import HOPL.INFERRED.Lang.Parser
 import HOPL.INFERRED.Lang.Parser (ParseError, parseToplevel)

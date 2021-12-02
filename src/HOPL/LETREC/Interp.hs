@@ -19,7 +19,7 @@ import Data.Either (fromRight)
 import HOPL.LETREC.DataStructures (DenVal, Environment, ExpVal (..), Procedure (..))
 import HOPL.LETREC.Environment (Env (..))
 import HOPL.LETREC.Lang.Parser (ParseError, parseToplevel)
-import HOPL.LETREC.Lang.Syntax (Exp (..), Pgm (..))
+import HOPL.LETREC.Lang.Syntax
 import HOPL.Types (Source)
 import Prelude hiding (exp)
 
@@ -49,96 +49,14 @@ valueOf (ConstExp n) _ = NumVal n
 -- Boolean literals
 valueOf TrueExp ρ = BoolVal True
 valueOf FalseExp ρ = BoolVal False
--- Arithmetic/numeric predicates
-valueOf (IsZeroExp exp₁) ρ = BoolVal (n == 0)
-  where
-    NumVal n = valueOf exp₁ ρ
-valueOf (IsPosExp exp₁) ρ = BoolVal (n₁ > 0)
-  where
-    NumVal n₁ = valueOf exp₁ ρ
-valueOf (IsNegExp exp₁) ρ = BoolVal (n₁ < 0)
-  where
-    NumVal n₁ = valueOf exp₁ ρ
--- Arithmetic operators
-valueOf (DiffExp exp₁ exp₂) ρ = NumVal (n₁ - n₂)
-  where
-    NumVal n₁ = valueOf exp₁ ρ
-    NumVal n₂ = valueOf exp₂ ρ
-valueOf (SumExp exp₁ exp₂) ρ = NumVal (n₁ + n₂)
-  where
-    NumVal n₁ = valueOf exp₁ ρ
-    NumVal n₂ = valueOf exp₂ ρ
-valueOf (ProdExp exp₁ exp₂) ρ = NumVal (n₁ * n₂)
-  where
-    NumVal n₁ = valueOf exp₁ ρ
-    NumVal n₂ = valueOf exp₂ ρ
-valueOf (DivExp exp₁ exp₂) ρ = NumVal (n₁ `div` n₂)
-  where
-    NumVal n₁ = valueOf exp₁ ρ
-    NumVal n₂ = valueOf exp₂ ρ
-valueOf (ModExp exp₁ exp₂) ρ = NumVal (n₁ `rem` n₂)
-  where
-    NumVal n₁ = valueOf exp₁ ρ
-    NumVal n₂ = valueOf exp₂ ρ
-valueOf (MinusExp exp₁) ρ = NumVal (- n₁)
-  where
-    NumVal n₁ = valueOf exp₁ ρ
--- Relational operators
-valueOf (IsEqualExp exp₁ exp₂) ρ = BoolVal (n₁ == n₂)
-  where
-    NumVal n₁ = valueOf exp₁ ρ
-    NumVal n₂ = valueOf exp₂ ρ
-valueOf (IsNotEqualExp exp₁ exp₂) ρ = BoolVal (n₁ /= n₂)
-  where
-    NumVal n₁ = valueOf exp₁ ρ
-    NumVal n₂ = valueOf exp₂ ρ
-valueOf (IsLessExp exp₁ exp₂) ρ = BoolVal (n₁ < n₂)
-  where
-    NumVal n₁ = valueOf exp₁ ρ
-    NumVal n₂ = valueOf exp₂ ρ
-valueOf (IsGreaterExp exp₁ exp₂) ρ = BoolVal (n₁ > n₂)
-  where
-    NumVal n₁ = valueOf exp₁ ρ
-    NumVal n₂ = valueOf exp₂ ρ
-valueOf (IsLessEqExp exp₁ exp₂) ρ = BoolVal (n₁ <= n₂)
-  where
-    NumVal n₁ = valueOf exp₁ ρ
-    NumVal n₂ = valueOf exp₂ ρ
-valueOf (IsGreaterEqExp exp₁ exp₂) ρ = BoolVal (n₁ >= n₂)
-  where
-    NumVal n₁ = valueOf exp₁ ρ
-    NumVal n₂ = valueOf exp₂ ρ
--- Logical operators
-valueOf (AndExp exp₁ exp₂) ρ = BoolVal (q₁ && q₂)
-  where
-    BoolVal q₁ = valueOf exp₁ ρ
-    BoolVal q₂ = valueOf exp₂ ρ
-valueOf (OrExp exp₁ exp₂) ρ = BoolVal (q₁ || q₂)
-  where
-    BoolVal q₁ = valueOf exp₁ ρ
-    BoolVal q₂ = valueOf exp₂ ρ
-valueOf (NotExp exp₁) ρ = BoolVal (not q₁)
-  where
-    BoolVal q₁ = valueOf exp₁ ρ
+-- Unary operation
+valueOf (UnaryExp op exp₁) ρ = valueOfUnaryOp op exp₁ ρ
+valueOf (BinaryExp op exp₁ exp₂) ρ = valueOfBinaryOp op exp₁ exp₂ ρ
 -- List constructors
 valueOf EmptyExp ρ = ListVal []
-valueOf (ListConsExp exp₁ exp₂) ρ = ListVal (v : vs)
-  where
-    v = valueOf exp₁ ρ
-    ListVal vs = valueOf exp₂ ρ
 valueOf (ListExp exps) ρ = ListVal vs
   where
     vs = map (`valueOf` ρ) exps
--- List observers
-valueOf (IsNullExp exp₁) ρ = BoolVal (null vs)
-  where
-    ListVal vs = valueOf exp₁ ρ
-valueOf (CarExp exp₁) ρ = v
-  where
-    ListVal (v : _) = valueOf exp₁ ρ
-valueOf (CdrExp exp₁) ρ = ListVal vs
-  where
-    ListVal (_ : vs) = valueOf exp₁ ρ
 -- Variable declarations
 valueOf (LetExp var rhs body) ρ = valueOf body ρ'
   where
@@ -166,3 +84,43 @@ valueOf (CallExp rator rand) ρ = applyProcedure f arg
 applyProcedure :: Procedure -> DenVal -> ExpVal
 applyProcedure (ClosedProcedure x body ρ) arg = valueOf body (extendEnv x arg ρ)
 applyProcedure _ _ = undefined
+
+{- Built-in operations -}
+valueOfUnaryOp :: UnaryOp -> Exp -> Environment -> ExpVal
+valueOfUnaryOp op exp ρ = case op of
+  IsZero -> BoolVal (n == 0)
+  IsNeg -> BoolVal (n < 0)
+  IsPos -> BoolVal (n > 0)
+  Minus -> NumVal (- n)
+  Not -> BoolVal (not $ expvalToBool v)
+  IsNull -> BoolVal (null vs)
+  Car -> head vs
+  Cdr -> ListVal (tail vs)
+  where
+    vs = expvalToList v
+    n = expvalToNum v
+    v = valueOf exp ρ
+
+valueOfBinaryOp :: BinaryOp -> Exp -> Exp -> Environment -> ExpVal
+valueOfBinaryOp op exp₁ exp₂ ρ = case op of
+  Diff -> NumVal (n₁ - n₂)
+  Plus -> NumVal (n₁ + n₂)
+  Times -> NumVal (n₁ * n₂)
+  Divides -> NumVal (n₁ `div` n₂)
+  Mod -> NumVal (n₁ `mod` n₂)
+  Equal -> BoolVal (v₁ == v₂)
+  NotEqual -> BoolVal (v₁ /= v₂)
+  Less -> BoolVal (n₁ < n₂)
+  LessEqual -> BoolVal (n₁ < n₂)
+  Greater -> BoolVal (n₁ < n₂)
+  GreaterEqual -> BoolVal (n₁ < n₂)
+  And -> BoolVal (q₁ && q₂)
+  Or -> BoolVal (q₁ || q₂)
+  Cons -> ListVal (v₁ : expvalToList v₂)
+  where
+    q₁ = expvalToBool v₁
+    q₂ = expvalToBool v₂
+    n₁ = expvalToNum v₁
+    n₂ = expvalToNum v₂
+    v₁ = valueOf exp₁ ρ
+    v₂ = valueOf exp₂ ρ

@@ -116,6 +116,8 @@ expression =
       SetRightExp
         <$> (reserved "setright" >> expression)
         <*> (reservedOp "=" >> expression),
+      StrExp
+        <$> stringLiteral,
       ConstExp
         <$> integer,
       VarExp

@@ -28,6 +28,7 @@ data Stmt
 data Exp
   = VarExp Id
   | ConstExp Integer
+  | StrExp String
   | IsZeroExp Exp
   | NotExp Exp
   | DiffExp Exp Exp

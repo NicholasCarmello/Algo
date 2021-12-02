@@ -73,3 +73,6 @@ reservedOp = Tok.reservedOp simpleStatementLexer
 
 whiteSpace :: Parser ()
 whiteSpace = Tok.whiteSpace simpleStatementLexer
+
+stringLiteral :: Parser String
+stringLiteral = Tok.stringLiteral simpleStatementLexer

@@ -42,6 +42,7 @@ type Pair2 = Reference
 data ExpVal
   = NumVal {expvalToNum :: Integer}
   | BoolVal {expvalToBool :: Bool}
+  | StrVal {expvalToString :: String}
   | ProcVal {expvalToProc :: Procedure}
   | MutPairVal {expvalToPair :: MutPair}
   deriving (Eq)
@@ -49,6 +50,7 @@ data ExpVal
 instance Show ExpVal where
   show (NumVal n) = show n
   show (BoolVal z) = show z
+  show (StrVal s) = s
   show (ProcVal f) = show f
   show (MutPairVal pr) = show pr
 

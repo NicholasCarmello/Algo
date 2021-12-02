@@ -90,6 +90,7 @@ valueOf (VarExp x) ρ σ = Answer (deref addr σ) σ
   where
     addr = applyEnv ρ x
 valueOf (ConstExp n) _ σ = Answer (NumVal n) σ
+valueOf (StrExp s) _ σ = Answer (StrVal s) σ
 valueOf (IsZeroExp exp₁) ρ σ = Answer (BoolVal (n == 0)) σ₁
   where
     Answer (NumVal n) σ₁ = valueOf exp₁ ρ σ
