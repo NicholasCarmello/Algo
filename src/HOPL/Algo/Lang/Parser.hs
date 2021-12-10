@@ -84,6 +84,12 @@ expression =
       LessThanExp
         <$> (reservedOp "<" >> symbol "(" >> expression)
         <*> (symbol "," >> expression <* symbol ")"),
+      GreaterEqualExp
+        <$> (reservedOp ">=" >> symbol "(" >> expression)
+        <*> (symbol "," >> expression <* symbol ")"),
+      LessEqualExp
+        <$> (reservedOp "<=" >> symbol "(" >> expression)
+        <*> (symbol "," >> expression <* symbol ")"),
       SumExp
         <$> (reservedOp "+" >> symbol "(" >> expression)
         <*> (symbol "," >> expression <* symbol ")"),
