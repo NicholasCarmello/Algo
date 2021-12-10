@@ -35,4 +35,6 @@ data Exp
   | SetRightExp Exp Exp
   | MultiExp Exp Exp
   | DivExp Exp Exp
+  | NotEqualsExp Exp Exp
+  | EqualsExp Exp Exp
   deriving (Eq, Ord, Show)

@@ -69,9 +69,14 @@ expression =
       MultiExp
         <$> (reservedOp "*" >> symbol "(" >> expression)
         <*> (symbol "," >> expression <* symbol ")"),
-      
       DivExp
         <$> (reservedOp "/" >> symbol "(" >> expression)
+        <*> (symbol "," >> expression <* symbol ")"),
+      NotEqualsExp
+      <$> (reservedOp "!=" >> symbol "(" >> expression)
+        <*> (symbol "," >> expression <* symbol ")"),
+      EqualsExp
+        <$> (reservedOp "==" >> symbol "(" >> expression)
         <*> (symbol "," >> expression <* symbol ")"),
       IsZeroExp
         <$> (reserved "zero?" >> parens expression),
