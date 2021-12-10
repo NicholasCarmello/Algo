@@ -66,7 +66,6 @@ expression =
       DiffExp
         <$> (reservedOp "-" >> symbol "(" >> expression)
         <*> (symbol "," >> expression <* symbol ")"),
-<<<<<<< Updated upstream
       MultiExp
         <$> (reservedOp "*" >> symbol "(" >> expression)
         <*> (symbol "," >> expression <* symbol ")"),
@@ -74,14 +73,13 @@ expression =
         <$> (reservedOp "/" >> symbol "(" >> expression)
         <*> (symbol "," >> expression <* symbol ")"),
       NotEqualsExp
-      <$> (reservedOp "!=" >> symbol "(" >> expression)
+        <$> (reservedOp "!=" >> symbol "(" >> expression)
         <*> (symbol "," >> expression <* symbol ")"),
       EqualsExp
         <$> (reservedOp "==" >> symbol "(" >> expression)
-=======
+        <*> (symbol "," >> expression <* symbol ")"),
       SumExp
         <$> (reservedOp "+" >> symbol "(" >> expression)
->>>>>>> Stashed changes
         <*> (symbol "," >> expression <* symbol ")"),
       IsZeroExp
         <$> (reserved "zero?" >> parens expression),
