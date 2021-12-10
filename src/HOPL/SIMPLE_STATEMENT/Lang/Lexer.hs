@@ -25,11 +25,7 @@ simpleStatementDef =
     { Tok.commentLine = "%",
       Tok.identStart = letter,
       Tok.identLetter = alphaNum <|> oneOf "_-?",
-<<<<<<< HEAD
-      Tok.reservedOpNames = ["=", "-","%"],
-=======
       Tok.reservedOpNames = ["=", "-", "+", "*"],
->>>>>>> 8a8f10074590b2d2d8df9698595b9dfecf960180
       Tok.reservedNames =
         [ "let",
           "in",
@@ -50,11 +46,7 @@ simpleStatementDef =
           "print",
           "while",
           "var",
-<<<<<<< HEAD
-          "input"
-=======
           "not"
->>>>>>> 8a8f10074590b2d2d8df9698595b9dfecf960180
         ]
     }
 

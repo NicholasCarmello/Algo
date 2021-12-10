@@ -101,15 +101,11 @@ valueOf (DiffExp exp₁ exp₂) ρ σ = Answer (NumVal (n₁ - n₂)) σ₂
   where
     Answer (NumVal n₁) σ₁ = valueOf exp₁ ρ σ
     Answer (NumVal n₂) σ₂ = valueOf exp₂ ρ σ₁
-<<<<<<< HEAD
-valueOf (QuotientExp exp₁ exp₂) ρ σ = Answer (NumVal (n₁ `mod` n₂)) σ₂
-=======
 valueOf (SumExp exp₁ exp₂) ρ σ = Answer (NumVal (n₁ + n₂)) σ₂
   where
     Answer (NumVal n₁) σ₁ = valueOf exp₁ ρ σ
     Answer (NumVal n₂) σ₂ = valueOf exp₂ ρ σ₁
 valueOf (ProdExp exp₁ exp₂) ρ σ = Answer (NumVal (n₁ * n₂)) σ₂
->>>>>>> 8a8f10074590b2d2d8df9698595b9dfecf960180
   where
     Answer (NumVal n₁) σ₁ = valueOf exp₁ ρ σ
     Answer (NumVal n₂) σ₂ = valueOf exp₂ ρ σ₁
