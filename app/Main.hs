@@ -37,7 +37,7 @@ import System.IO (hPrint, stderr)
 repl :: IO ()
 repl = do
   args <- getArgs
-  let lang = if null args then "SIMPLE_STATEMENT" else head args
+  let lang = if null args then "Algo" else head args
   runInputT defaultSettings (loop lang)
   where
     loop lang = do
