@@ -21,6 +21,7 @@ data Exp
   | ConstExp Integer
   | IsZeroExp Exp
   | DiffExp Exp Exp
+  | SumExp Exp Exp
   | LetExp Id Exp Exp
   | LetrecExp Id Id Exp Exp
   | IfExp Exp Exp Exp

@@ -57,6 +57,7 @@ valueOf (DiffExp exp₁ exp₂) ρ σ = Answer (NumVal (n₁ - n₂)) σ₂
   where
     Answer (NumVal n₁) σ₁ = valueOf exp₁ ρ σ
     Answer (NumVal n₂) σ₂ = valueOf exp₂ ρ σ₁
+<<<<<<< Updated upstream
 valueOf (MultiExp exp₁ exp₂) ρ σ = Answer (NumVal (n₁ * n₂)) σ₂
   where
     Answer (NumVal n₁) σ₁ = valueOf exp₁ ρ σ
@@ -77,6 +78,12 @@ valueOf (NotEqualsExp exp₁ exp₂) ρ σ = Answer (BoolVal (n₁ /= n₂)) σ�
   where
     Answer (BoolVal n₁) σ₁ = valueOf exp₁ ρ σ
     Answer (BoolVal n₂) σ₂ = valueOf exp₂ ρ σ₁
+=======
+valueOf (SumExp exp₁ exp₂) ρ σ = Answer (NumVal (n₁ + n₂)) σ₂
+  where
+    Answer (NumVal n₁) σ₁ = valueOf exp₁ ρ σ
+    Answer (NumVal n₂) σ₂ = valueOf exp₂ ρ σ₁
+>>>>>>> Stashed changes
 valueOf (LetExp x rhs body) ρ σ = valueOf body ρ' σ₂
   where
     ρ' = extendEnv x addr ρ
