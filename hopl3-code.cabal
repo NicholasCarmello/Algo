@@ -4,7 +4,7 @@ cabal-version: 2.2
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 8fff6037316552f1796f4e774bfc4dbc087ad55a9d190f841bab0afdbb11d06a
+-- hash: 44059d415fb9e3043a4aa1978b0022c500cacb53634b8b54e151cdfdbe9fd805
 
 name:           hopl3-code
 version:        0.1.1.0
@@ -26,6 +26,13 @@ source-repository head
 
 library
   exposed-modules:
+      HOPL.Algo.DataStructures
+      HOPL.Algo.Environment
+      HOPL.Algo.Interp
+      HOPL.Algo.Lang.Lexer
+      HOPL.Algo.Lang.Parser
+      HOPL.Algo.Lang.Syntax
+      HOPL.Algo.Store
       HOPL.CALL_BY_NEED.DataStructures
       HOPL.CALL_BY_NEED.Environment
       HOPL.CALL_BY_NEED.Interp
@@ -86,13 +93,6 @@ library
       HOPL.LETREC.Lang.Lexer
       HOPL.LETREC.Lang.Parser
       HOPL.LETREC.Lang.Syntax
-      HOPL.MUTABLE_PAIRS.DataStructures
-      HOPL.MUTABLE_PAIRS.Environment
-      HOPL.MUTABLE_PAIRS.Interp
-      HOPL.MUTABLE_PAIRS.Lang.Lexer
-      HOPL.MUTABLE_PAIRS.Lang.Parser
-      HOPL.MUTABLE_PAIRS.Lang.Syntax
-      HOPL.MUTABLE_PAIRS.Store
       HOPL.PROC.DataStructures
       HOPL.PROC.Environment
       HOPL.PROC.Interp
@@ -113,9 +113,7 @@ library
       src
   build-depends:
       base >=4.7 && <5
-    , mtl
     , parsec >=3.1
-    , random
   default-language: Haskell2010
 
 executable hopl3-repl
@@ -131,7 +129,6 @@ executable hopl3-repl
     , hopl3-code
     , mtl >=2.2
     , parsec >=3.1
-    , random
   default-language: Haskell2010
 
 executable hopl3-run
@@ -147,7 +144,6 @@ executable hopl3-run
     , hopl3-code
     , mtl >=2.2
     , parsec >=3.1
-    , random
   default-language: Haskell2010
 
 test-suite hopl3-test
@@ -175,7 +171,6 @@ test-suite hopl3-test
     , hopl3-code
     , mtl >=2.2
     , parsec >=3.1
-    , random
     , tasty
     , tasty-hspec
     , tasty-hunit
