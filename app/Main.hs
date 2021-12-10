@@ -18,6 +18,7 @@ import qualified HOPL.CALL_BY_REFERENCE.Interp as CALL_BY_REFERENCE (interp)
 import qualified HOPL.CHECKED.Interp as CHECKED (checkAndInterp)
 import qualified HOPL.EXPLICIT_REFS.Interp as EXPLICIT_REFS (interp)
 import qualified HOPL.IMPLICIT_REFS.Interp as IMPLICIT_REFS (interp)
+import qualified HOPL.INFERRED.Interp as INFERRED (checkAndInterp)
 import qualified HOPL.LET.Interp as LET (interp)
 import qualified HOPL.LETREC.Interp as LETREC (interp)
 import qualified HOPL.MUTABLE_PAIRS.Interp as MUTABLE_PAIRS (interp)
@@ -57,6 +58,7 @@ repl = do
                   "CALL_BY_NEED" -> doInterp CALL_BY_NEED.interp input
                   "SIMPLE_STATEMENT" -> doInterp' SIMPLE_STATEMENT.interp input
                   "CHECKED" -> doInterp CHECKED.checkAndInterp input
+                  "INFERRED" -> doInterp INFERRED.checkAndInterp input
               )
               >> loop lang
 

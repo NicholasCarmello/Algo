@@ -16,7 +16,7 @@ where
 
 import HOPL.SIMPLE_STATEMENT.Lang.Lexer
 import HOPL.SIMPLE_STATEMENT.Lang.Syntax (Exp (..), Pgm (..), Stmt (..))
-import Text.Parsec (ParseError, choice, eof, parse, sepBy, try)
+import Text.Parsec (ParseError, choice, eof, many, parse, sepBy, try)
 import qualified Text.Parsec.Expr as Ex
 import Text.Parsec.String (Parser)
 
@@ -82,13 +82,21 @@ expression =
         <*> (reserved "else" >> expression),
       CallExp
         <$> (symbol "(" >> expression)
-        <*> (expression <* symbol ")"),
+        <*> (many expression <* symbol ")"),
       ProcExp
-        <$> (reserved "proc" >> parens identifier)
-        <*> expression,
+        <$> (reserved "proc" >> symbol "(" >> sepBy identifier (symbol ","))
+        <*> (symbol ")" >> expression),
+      ProdExp
+        <$> (reservedOp "*" >> symbol "(" >> expression)
+        <*> (symbol "," >> expression <* symbol ")"),
+      SumExp
+        <$> (reservedOp "+" >> symbol "(" >> expression)
+        <*> (symbol "," >> expression <* symbol ")"),
       DiffExp
         <$> (reservedOp "-" >> symbol "(" >> expression)
         <*> (symbol "," >> expression <* symbol ")"),
+      NotExp
+        <$> (reserved "not" >> parens expression),
       IsZeroExp
         <$> (reserved "zero?" >> parens expression),
       BeginExp
@@ -109,6 +117,8 @@ expression =
       SetRightExp
         <$> (reserved "setright" >> expression)
         <*> (reservedOp "=" >> expression),
+      StrExp
+        <$> stringLiteral,
       ConstExp
         <$> integer,
       QuotientExp

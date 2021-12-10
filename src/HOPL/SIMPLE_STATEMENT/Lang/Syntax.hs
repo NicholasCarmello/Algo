@@ -28,13 +28,17 @@ data Stmt
 data Exp
   = VarExp Id
   | ConstExp Integer
+  | StrExp String
   | IsZeroExp Exp
+  | NotExp Exp
   | DiffExp Exp Exp
+  | SumExp Exp Exp
+  | ProdExp Exp Exp
   | LetExp Id Exp Exp
   | LetrecExp Id Id Exp Exp
   | IfExp Exp Exp Exp
-  | ProcExp Id Exp
-  | CallExp Exp Exp
+  | ProcExp [Id] Exp
+  | CallExp Exp [Exp]
   | AssignExp Id Exp
   | BeginExp [Exp]
   | NewPairExp Exp Exp

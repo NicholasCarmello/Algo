@@ -15,7 +15,7 @@ module HOPL.LETREC.Lang.Parser
 where
 
 import HOPL.LETREC.Lang.Lexer
-import HOPL.LETREC.Lang.Syntax (Exp (..), Pgm (..))
+import HOPL.LETREC.Lang.Syntax (BinaryOp (..), Exp (..), Pgm (..), UnaryOp (..))
 import Text.Parsec (ParseError, choice, eof, many1, parse, sepBy, try)
 import qualified Text.Parsec.Expr as Ex
 import Text.Parsec.String (Parser)
@@ -69,77 +69,19 @@ expression =
         <$> (reserved "proc" >> parens identifier)
         <*> expression,
       -- Function call
-      CallExp
-        <$> (symbol "(" >> expression)
-        <*> (expression <* symbol ")"),
+      uncurry CallExp
+        <$> parens (pairOf expression),
       -- List constructors
       EmptyExp
         <$ reserved "emptylist",
-      ListConsExp
-        <$> (reserved "cons" >> symbol "(" >> expression)
-        <*> (symbol "," >> expression <* symbol ")"),
       ListExp
         <$> (reserved "list" >> parens (sepBy expression (symbol ","))),
-      -- List observers
-      IsNullExp
-        <$> (reserved "null?" >> parens expression),
-      CarExp
-        <$> (reserved "car" >> parens expression),
-      CdrExp
-        <$> (reserved "cdr" >> parens expression),
-      -- Logical operators
-      AndExp
-        <$> (reservedOp "&&" >> symbol "(" >> expression)
-        <*> (symbol "," >> expression <* symbol ")"),
-      OrExp
-        <$> (reservedOp "||" >> symbol "(" >> expression)
-        <*> (symbol "," >> expression <* symbol ")"),
-      NotExp
-        <$> (reserved "not" >> parens expression),
-      -- Relational operators
-      IsEqualExp
-        <$> (reservedOp "==" >> symbol "(" >> expression)
-        <*> (symbol "," >> expression <* symbol ")"),
-      IsNotEqualExp
-        <$> (reservedOp "==" >> symbol "(" >> expression)
-        <*> (symbol "," >> expression <* symbol ")"),
-      IsLessExp
-        <$> (reservedOp "<" >> symbol "(" >> expression)
-        <*> (symbol "," >> expression <* symbol ")"),
-      IsGreaterExp
-        <$> (reservedOp ">" >> symbol "(" >> expression)
-        <*> (symbol "," >> expression <* symbol ")"),
-      IsLessEqExp
-        <$> (reservedOp "<=" >> symbol "(" >> expression)
-        <*> (symbol "," >> expression <* symbol ")"),
-      IsGreaterEqExp
-        <$> (reservedOp ">=" >> symbol "(" >> expression)
-        <*> (symbol "," >> expression <* symbol ")"),
-      -- Arithmetic operators
-      DiffExp
-        <$> (reservedOp "-" >> symbol "(" >> expression)
-        <*> (symbol "," >> expression <* symbol ")"),
-      SumExp
-        <$> (reservedOp "+" >> symbol "(" >> expression)
-        <*> (symbol "," >> expression <* symbol ")"),
-      ProdExp
-        <$> (reservedOp "*" >> symbol "(" >> expression)
-        <*> (symbol "," >> expression <* symbol ")"),
-      DivExp
-        <$> (reservedOp "/" >> symbol "(" >> expression)
-        <*> (symbol "," >> expression <* symbol ")"),
-      ModExp
-        <$> (reservedOp "%" >> symbol "(" >> expression)
-        <*> (symbol "," >> expression <* symbol ")"),
-      MinusExp
-        <$> (reserved "minus" >> parens expression),
-      -- Arithmetic/numeric predicates
-      IsZeroExp
-        <$> (reserved "zero?" >> parens expression),
-      IsNegExp
-        <$> (reserved "neg?" >> parens expression),
-      IsPosExp
-        <$> (reserved "pos?" >> parens expression),
+      -- Unary operations
+      UnaryExp
+        <$> unaryOperator <*> parens expression,
+      uncurry . BinaryExp
+        <$> binaryOperator
+        <*> parens (sepPairOf expression ","),
       -- Boolean literals
       TrueExp
         <$ reserved "true",
@@ -152,3 +94,41 @@ expression =
       VarExp
         <$> identifier
     ]
+
+unaryOperator :: Parser UnaryOp
+unaryOperator =
+  (choice . map try)
+    [ IsZero <$ reserved "zero?",
+      IsNeg <$ reserved "neg?",
+      IsPos <$ reserved "pos?",
+      Not <$ reserved "not",
+      Minus <$ reserved "minus",
+      IsNull <$ reserved "null?",
+      Car <$ reserved "car",
+      Cdr <$ reserved "cdr"
+    ]
+
+binaryOperator :: Parser BinaryOp
+binaryOperator =
+  (choice . map try)
+    [ Diff <$ reservedOp "-",
+      Plus <$ reservedOp "+",
+      Times <$ reservedOp "*",
+      Divides <$ reservedOp "/",
+      Mod <$ reservedOp "%",
+      Equal <$ reservedOp "==",
+      NotEqual <$ reservedOp "!=",
+      Less <$ reservedOp "<",
+      LessEqual <$ reservedOp "<=",
+      Greater <$ reservedOp ">",
+      GreaterEqual <$ reservedOp ">=",
+      And <$ reservedOp "&&",
+      Or <$ reservedOp "||",
+      Cons <$ reserved "cons"
+    ]
+
+pairOf :: Parser a -> Parser (a, a)
+pairOf p = (,) <$> p <*> p
+
+sepPairOf :: Parser a -> String -> Parser (a, a)
+sepPairOf p sep = (,) <$> p <*> (symbol sep >> p)

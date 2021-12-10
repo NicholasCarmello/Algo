@@ -1,14 +1,14 @@
 {-
- -  HOPL/CHECKED/Interp.hs
+ -  HOPL/INFERRED/Interp.hs
  -
- -  Reference implementation of the toy language CHECKED from the
+ -  Reference implementation of the toy language INFERRED from the
  -  EOPL3 textbook by Mitchell Wand.
  -
  -  This module provides the core interpreter implementation.
  -
  -  Author: Matthew A Johnson
  -}
-module HOPL.CHECKED.Interp
+module HOPL.INFERRED.Interp
   ( checkAndInterp,
     checkAndInterpWith,
     interpWith,
@@ -16,12 +16,12 @@ module HOPL.CHECKED.Interp
 where
 
 import Data.Either (fromRight)
-import HOPL.CHECKED.Checker
-import HOPL.CHECKED.DataStructures (DenVal, Environment, ExpVal (..), Procedure (..))
-import HOPL.CHECKED.Environment (Env (..))
-import HOPL.CHECKED.Lang.Parser (ParseError, parseToplevel)
-import HOPL.CHECKED.Lang.Syntax (Exp (..), Pgm (..))
-import HOPL.CHECKED.TypeEnv (TEnv (..), TypeEnvironment)
+import HOPL.INFERRED.DataStructures (DenVal, Environment, ExpVal (..), Procedure (..))
+import HOPL.INFERRED.Environment (Env (..))
+import HOPL.INFERRED.Inferrer
+import HOPL.INFERRED.Lang.Parser (ParseError, parseToplevel)
+import HOPL.INFERRED.Lang.Syntax (Exp (..), Pgm (..))
+import HOPL.INFERRED.TypeEnv (TEnv (..), TypeEnvironment)
 import HOPL.Types (Source)
 import Prelude hiding (exp)
 

@@ -7,14 +7,17 @@
  -}
 module Main where
 
-import qualified LetSpec as LET
-import qualified ProcSpec as PROC
-import qualified LetrecSpec as LETREC
+import qualified CallByNeedSpec as CALL_BY_NEED
+import qualified CallByReferenceSpec as CALL_BY_REFERENCE
+import qualified CheckedSpec as CHECKED
 import qualified ExplicitRefsSpec as EXPLICIT_REFS
 import qualified ImplicitRefsSpec as IMPLICIT_REFS
+import qualified InferredSpec as INFERRED
+import qualified LetSpec as LET
+import qualified LetrecSpec as LETREC
 import qualified MutablePairsSpec as MUTABLE_PAIRS
-import qualified CallByReferenceSpec as CALL_BY_REFERENCE
-import qualified CallByNeedSpec as CALL_BY_NEED
+import qualified ProcSpec as PROC
+import qualified SimpleStatementSpec as SIMPLE_STATEMENT
 import Test.Tasty.Hspec (hspec)
 
 main = do
@@ -26,3 +29,6 @@ main = do
   hspec MUTABLE_PAIRS.spec
   hspec CALL_BY_REFERENCE.spec
   hspec CALL_BY_NEED.spec
+  hspec CHECKED.spec
+  hspec INFERRED.spec
+  hspec SIMPLE_STATEMENT.spec
