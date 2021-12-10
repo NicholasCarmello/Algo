@@ -9,7 +9,7 @@
  -
  -  Author: Matthew A Johnson
  -}
-module HOPL.MUTABLE_PAIRS.DataStructures
+module HOPL.Algo.DataStructures
   ( ExpVal (..),
     DenVal,
     StoVal,
@@ -22,7 +22,7 @@ module HOPL.MUTABLE_PAIRS.DataStructures
   )
 where
 
-import HOPL.MUTABLE_PAIRS.Lang.Syntax (Exp)
+import HOPL.Algo.Lang.Syntax (Exp)
 import HOPL.Types (Id, Reference)
 
 --Storable values are any expressed value

@@ -8,14 +8,14 @@
  -
  -  Author: Matthew A Johnson
  -}
-module HOPL.MUTABLE_PAIRS.Lang.Parser
+module HOPL.Algo.Lang.Parser
   ( parseToplevel,
     ParseError,
   )
 where
 
-import HOPL.MUTABLE_PAIRS.Lang.Lexer
-import HOPL.MUTABLE_PAIRS.Lang.Syntax (Exp (..), Pgm (..))
+import HOPL.Algo.Lang.Lexer
+import HOPL.Algo.Lang.Syntax (Exp (..), Pgm (..))
 import Text.Parsec (ParseError, choice, eof, parse, sepBy, try)
 import qualified Text.Parsec.Expr as Ex
 import Text.Parsec.String (Parser)

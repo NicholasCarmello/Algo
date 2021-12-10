@@ -8,7 +8,7 @@
  -
  -  Author: Matthew A Johnson
  -}
-module HOPL.MUTABLE_PAIRS.Interp
+module HOPL.Algo.Interp
   ( interp,
     interpWith,
     interpWith',
@@ -16,11 +16,11 @@ module HOPL.MUTABLE_PAIRS.Interp
 where
 
 import Data.Either (fromRight)
-import HOPL.MUTABLE_PAIRS.DataStructures (DenVal, Environment, ExpVal (..), Procedure (..))
-import HOPL.MUTABLE_PAIRS.Environment (Env (..))
-import HOPL.MUTABLE_PAIRS.Lang.Parser (ParseError, parseToplevel)
-import HOPL.MUTABLE_PAIRS.Lang.Syntax (Exp (..), Pgm (..))
-import HOPL.MUTABLE_PAIRS.Store (Store, deref, emptyStore, left, makePair, newref, right, setref, setLeft, setRight)
+import HOPL.Algo.DataStructures (DenVal, Environment, ExpVal (..), Procedure (..))
+import HOPL.Algo.Environment (Env (..))
+import HOPL.Algo.Lang.Parser (ParseError, parseToplevel)
+import HOPL.Algo.Lang.Syntax (Exp (..), Pgm (..))
+import HOPL.Algo.Store (Store, deref, emptyStore, left, makePair, newref, right, setref, setLeft, setRight)
 import HOPL.Types (Source)
 import Prelude hiding (exp)
 

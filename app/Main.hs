@@ -21,7 +21,7 @@ import qualified HOPL.IMPLICIT_REFS.Interp as IMPLICIT_REFS (interp)
 import qualified HOPL.INFERRED.Interp as INFERRED (checkAndInterp)
 import qualified HOPL.LET.Interp as LET (interp)
 import qualified HOPL.LETREC.Interp as LETREC (interp)
-import qualified HOPL.MUTABLE_PAIRS.Interp as MUTABLE_PAIRS (interp)
+import qualified HOPL.Algo.Interp as Algo (interp)
 import qualified HOPL.PROC.Interp as PROC (interp)
 import qualified HOPL.SIMPLE_STATEMENT.Interp as SIMPLE_STATEMENT (interp)
 import HOPL.Types (Interpreter, Source)
@@ -53,7 +53,7 @@ repl = do
                   "LETREC" -> doInterp LETREC.interp input
                   "EXPLICIT_REFS" -> doInterp EXPLICIT_REFS.interp input
                   "IMPLICIT_REFS" -> doInterp IMPLICIT_REFS.interp input
-                  "MUTABLE_PAIRS" -> doInterp MUTABLE_PAIRS.interp input
+                  "MUTABLE_PAIRS" -> doInterp Algo.interp input
                   "CALL_BY_REFERENCE" -> doInterp CALL_BY_REFERENCE.interp input
                   "CALL_BY_NEED" -> doInterp CALL_BY_NEED.interp input
                   "SIMPLE_STATEMENT" -> doInterp' SIMPLE_STATEMENT.interp input

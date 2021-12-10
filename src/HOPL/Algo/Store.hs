@@ -9,7 +9,7 @@
  -
  -  Author: Matthew A Johnson
  -}
-module HOPL.MUTABLE_PAIRS.Store
+module HOPL.Algo.Store
   ( Store,
     emptyStore,
     newref,
@@ -23,7 +23,7 @@ module HOPL.MUTABLE_PAIRS.Store
   )
 where
 
-import HOPL.MUTABLE_PAIRS.DataStructures (MutPair, Pair1, Pair2, StoVal)
+import HOPL.Algo.DataStructures (MutPair, Pair1, Pair2, StoVal)
 import HOPL.Types (Reference)
 
 type Store = [StoVal]

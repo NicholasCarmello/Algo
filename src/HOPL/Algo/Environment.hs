@@ -9,9 +9,9 @@
  -
  -  Author: Matthew A Johnson
  -}
-module HOPL.MUTABLE_PAIRS.Environment (Env (..)) where
+module HOPL.Algo.Environment (Env (..)) where
 
-import HOPL.MUTABLE_PAIRS.DataStructures (Binding, DenVal, Environment (..))
+import HOPL.Algo.DataStructures (Binding, DenVal, Environment (..))
 import HOPL.Types (Id)
 
 {- Interface for an environment (symbol-to-value mapping) -}

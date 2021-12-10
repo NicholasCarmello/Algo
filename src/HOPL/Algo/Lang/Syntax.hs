@@ -8,7 +8,7 @@
  -
  -  Author: Matthew A Johnson
  -}
-module HOPL.MUTABLE_PAIRS.Lang.Syntax where
+module HOPL.Algo.Lang.Syntax where
 
 import HOPL.Types (Id)
 
