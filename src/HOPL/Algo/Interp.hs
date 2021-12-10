@@ -65,11 +65,11 @@ valueOf (DivExp exp₁ exp₂) ρ σ = Answer (NumVal (n₁ `div` n₂)) σ₂
   where
     Answer (NumVal n₁) σ₁ = valueOf exp₁ ρ σ
     Answer (NumVal n₂) σ₂ = valueOf exp₂ ρ σ₁
-valueOf (GreaterThanExp exp₁ exp₂) ρ σ = Answer (NumVal (n₁ > n₂)) σ₂
+valueOf (GreaterThanExp exp₁ exp₂) ρ σ = Answer (BoolVal (n₁ > n₂)) σ₂
   where
     Answer (NumVal n₁) σ₁ = valueOf exp₁ ρ σ
     Answer (NumVal n₂) σ₂ = valueOf exp₂ ρ σ₁
-valueOf (LessThanExp exp₁ exp₂) ρ σ = Answer (NumVal (n₁ < n₂)) σ₂
+valueOf (LessThanExp exp₁ exp₂) ρ σ = Answer (BoolVal (n₁ < n₂)) σ₂
   where
     Answer (NumVal n₁) σ₁ = valueOf exp₁ ρ σ
     Answer (NumVal n₂) σ₂ = valueOf exp₂ ρ σ₁
