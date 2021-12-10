@@ -33,4 +33,6 @@ data Exp
   | RightExp Exp
   | SetLeftExp Exp Exp
   | SetRightExp Exp Exp
+  | MultiExp Exp Exp
+  | DivExp Exp Exp
   deriving (Eq, Ord, Show)

@@ -66,6 +66,13 @@ expression =
       DiffExp
         <$> (reservedOp "-" >> symbol "(" >> expression)
         <*> (symbol "," >> expression <* symbol ")"),
+      MultiExp
+        <$> (reservedOp "*" >> symbol "(" >> expression)
+        <*> (symbol "," >> expression <* symbol ")"),
+      
+      DivExp
+        <$> (reservedOp "/" >> symbol "(" >> expression)
+        <*> (symbol "," >> expression <* symbol ")"),
       IsZeroExp
         <$> (reserved "zero?" >> parens expression),
       BeginExp

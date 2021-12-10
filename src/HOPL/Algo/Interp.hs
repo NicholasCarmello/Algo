@@ -57,6 +57,15 @@ valueOf (DiffExp exp₁ exp₂) ρ σ = Answer (NumVal (n₁ - n₂)) σ₂
   where
     Answer (NumVal n₁) σ₁ = valueOf exp₁ ρ σ
     Answer (NumVal n₂) σ₂ = valueOf exp₂ ρ σ₁
+valueOf (MultiExp exp₁ exp₂) ρ σ = Answer (NumVal (n₁ * n₂)) σ₂
+  where
+    Answer (NumVal n₁) σ₁ = valueOf exp₁ ρ σ
+    Answer (NumVal n₂) σ₂ = valueOf exp₂ ρ σ₁
+valueOf (DivExp exp₁ exp₂) ρ σ = Answer (NumVal (n₁ `div` n₂)) σ₂
+  where
+    Answer (NumVal n₁) σ₁ = valueOf exp₁ ρ σ
+    Answer (NumVal n₂) σ₂ = valueOf exp₂ ρ σ₁
+
 valueOf (LetExp x rhs body) ρ σ = valueOf body ρ' σ₂
   where
     ρ' = extendEnv x addr ρ
