@@ -78,6 +78,12 @@ expression =
       EqualsExp
         <$> (reservedOp "==" >> symbol "(" >> expression)
         <*> (symbol "," >> expression <* symbol ")"),
+      GreaterThanExp
+        <$> (reservedOp ">" >> symbol "(" >> expression)
+        <*> (symbol "," >> expression <* symbol ")"),
+      LessThanExp
+        <$> (reservedOp "<" >> symbol "(" >> expression)
+        <*> (symbol "," >> expression <* symbol ")"),
       SumExp
         <$> (reservedOp "+" >> symbol "(" >> expression)
         <*> (symbol "," >> expression <* symbol ")"),

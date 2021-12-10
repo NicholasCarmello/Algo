@@ -38,4 +38,6 @@ data Exp
   | DivExp Exp Exp
   | NotEqualsExp Exp Exp
   | EqualsExp Exp Exp
+  | GreaterThanExp Exp Exp
+  | LessThanExp Exp Exp
   deriving (Eq, Ord, Show)

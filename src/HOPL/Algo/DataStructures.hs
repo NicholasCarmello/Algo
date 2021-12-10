@@ -44,6 +44,7 @@ data ExpVal
   | BoolVal {expvalToBool :: Bool}
   | ProcVal {expvalToProc :: Procedure}
   | MutPairVal {expvalToPair :: MutPair}
+  | ListVal {expvalToList :: [ExpVal]}
   deriving (Eq)
 
 instance Show ExpVal where
@@ -51,6 +52,7 @@ instance Show ExpVal where
   show (BoolVal z) = "(BoolVal " ++ show z ++ ")"
   show (ProcVal f) = "(ProcVal " ++ show f ++ ")"
   show (MutPairVal pr) = "(MutPairVal " ++ show pr ++ ")"
+  show (ListVal vs) = "(ListVal " ++ show vs ++ ")"
 
 {- Recursive "data structure" representation for environments -}
 
