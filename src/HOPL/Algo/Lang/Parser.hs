@@ -87,6 +87,9 @@ expression =
       GreaterEqualExp
         <$> (reservedOp ">=" >> symbol "(" >> expression)
         <*> (symbol "," >> expression <* symbol ")"),
+      AndExp
+        <$> (reservedOp "&&" >> symbol "(" >> expression)
+        <*> (symbol "," >> expression <* symbol ")"),
       LessEqualExp
         <$> (reservedOp "<=" >> symbol "(" >> expression)
         <*> (symbol "," >> expression <* symbol ")"),
