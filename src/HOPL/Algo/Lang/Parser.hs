@@ -94,9 +94,6 @@ expression =
       GreaterEqualExp
         <$> (reservedOp ">=" >> symbol "(" >> expression)
         <*> (symbol "," >> expression <* symbol ")"),
-      AndExp
-        <$> (reservedOp "&&" >> symbol "(" >> expression)
-        <*> (symbol "," >> expression <* symbol ")"),
       OrExp
         <$> (reservedOp "||" >> symbol "(" >> expression)
         <*> (symbol "," >> expression <* symbol ")"),
