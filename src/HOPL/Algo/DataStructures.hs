@@ -54,6 +54,7 @@ instance Show ExpVal where
   show (ProcVal f) = "(ProcVal " ++ show f ++ ")"
   show (MutPairVal pr) = "(MutPairVal " ++ show pr ++ ")"
   show (ListVal vs) = "(ListVal " ++ show vs ++ ")"
+  show (StrVal s) = "(StrVal " ++ show s ++ ")"
 
 {- Recursive "data structure" representation for environments -}
 

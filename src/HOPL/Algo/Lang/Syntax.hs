@@ -46,4 +46,5 @@ data Exp
   | ListExp [Exp]
   | GreaterEqualExp Exp Exp
   | LessEqualExp Exp Exp
+  | StrExp String
   deriving (Eq, Ord, Show)

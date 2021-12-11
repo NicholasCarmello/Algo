@@ -74,3 +74,7 @@ reservedOp = Tok.reservedOp mutablePairsLexer
 
 whiteSpace :: Parser ()
 whiteSpace = Tok.whiteSpace mutablePairsLexer
+
+stringLiteral :: Parser String
+stringLiteral = Tok.stringLiteral mutablePairsLexer
+
