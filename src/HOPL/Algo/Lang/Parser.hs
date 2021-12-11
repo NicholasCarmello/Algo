@@ -66,6 +66,13 @@ expression =
       DiffExp
         <$> (reservedOp "-" >> symbol "(" >> expression)
         <*> (symbol "," >> expression <* symbol ")"),
+      EmptyExp
+        <$ reserved "emptylist",
+      ListExp
+        <$> (reserved "list" >> parens (sepBy expression (symbol ","))),
+      AndExp
+        <$> (reservedOp "&&" >> symbol "(" >> expression)
+        <*> (symbol "," >> expression <* symbol ")"),
       MultiExp
         <$> (reservedOp "*" >> symbol "(" >> expression)
         <*> (symbol "," >> expression <* symbol ")"),
@@ -83,15 +90,6 @@ expression =
         <*> (symbol "," >> expression <* symbol ")"),
       LessThanExp
         <$> (reservedOp "<" >> symbol "(" >> expression)
-        <*> (symbol "," >> expression <* symbol ")"),
-      GreaterEqualExp
-        <$> (reservedOp ">=" >> symbol "(" >> expression)
-        <*> (symbol "," >> expression <* symbol ")"),
-      AndExp
-        <$> (reservedOp "&&" >> symbol "(" >> expression)
-        <*> (symbol "," >> expression <* symbol ")"),
-      LessEqualExp
-        <$> (reservedOp "<=" >> symbol "(" >> expression)
         <*> (symbol "," >> expression <* symbol ")"),
       SumExp
         <$> (reservedOp "+" >> symbol "(" >> expression)

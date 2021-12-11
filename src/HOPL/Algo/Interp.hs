@@ -144,7 +144,10 @@ valueOf (SetRightExp lhs rhs) ρ σ = Answer (NumVal 42) σ₃
     Answer (MutPairVal pr) σ₁ = valueOf lhs ρ σ
     Answer rval σ₂ = valueOf rhs ρ σ₁
     σ₃ = setRight σ₂ pr rval
-
+valueOf EmptyExp ρ σ = Answer (ListVal []) σ
+valueOf (ListExp exps) ρ σ₁ = Answer (ListVal vs) σ 
+  where
+    vs σ₂ = map (`valueOf` ρ) exps
 {- Auxiliary function for applying procedure values -}
 applyProcedure :: Procedure -> DenVal -> Store -> Answer
 applyProcedure (ClosedProcedure x body ρ) arg σ = valueOf body (extendEnv x arg ρ) σ

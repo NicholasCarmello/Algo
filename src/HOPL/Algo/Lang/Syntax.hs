@@ -36,11 +36,11 @@ data Exp
   | SetRightExp Exp Exp
   | MultiExp Exp Exp
   | DivExp Exp Exp
-  | AndExp Exp Exp
   | NotEqualsExp Exp Exp
   | EqualsExp Exp Exp
   | GreaterThanExp Exp Exp
   | LessThanExp Exp Exp
-  | GreaterEqualExp Exp Exp
-  | LessEqualExp Exp Exp
+  | AndExp Exp Exp
+  | EmptyExp
+  | ListExp [Exp]
   deriving (Eq, Ord, Show)

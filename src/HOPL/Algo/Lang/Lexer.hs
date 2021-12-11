@@ -15,6 +15,7 @@ import Text.Parsec.Char (alphaNum, letter, oneOf)
 import Text.Parsec.Language (emptyDef)
 import Text.Parsec.String (Parser)
 import qualified Text.Parsec.Token as Tok
+import qualified Data.Bool as Tok
 
 mutablePairsLexer :: Tok.TokenParser ()
 mutablePairsLexer =
@@ -25,9 +26,11 @@ mutablePairsDef =
     { Tok.commentLine = "%",
       Tok.identStart = letter,
       Tok.identLetter = alphaNum <|> oneOf "_-?",
-      Tok.reservedOpNames = ["=", "-","+","%","/","^","*",">","<","<=",">="],
+      Tok.reservedOpNames = ["=", "-","+","%","/","^","*",">","<","&&"],
       Tok.reservedNames =
-        [ "let",
+
+        [ "list",
+          "let",
           "in",
           "if",
           "then",
@@ -42,7 +45,8 @@ mutablePairsDef =
           "left",
           "right",
           "setleft",
-          "setright"
+          "setright",
+          "emptylist"
         ]
     }
 
@@ -60,6 +64,7 @@ commaSep = Tok.commaSep mutablePairsLexer
 
 identifier :: Parser String
 identifier = Tok.identifier mutablePairsLexer
+
 
 reserved :: String -> Parser ()
 reserved = Tok.reserved mutablePairsLexer
