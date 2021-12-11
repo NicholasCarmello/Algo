@@ -90,6 +90,9 @@ expression =
       AndExp
         <$> (reservedOp "&&" >> symbol "(" >> expression)
         <*> (symbol "," >> expression <* symbol ")"),
+      OrExp
+        <$> (reservedOp "||" >> symbol "(" >> expression)
+        <*> (symbol "," >> expression <* symbol ")"),
       LessEqualExp
         <$> (reservedOp "<=" >> symbol "(" >> expression)
         <*> (symbol "," >> expression <* symbol ")"),
