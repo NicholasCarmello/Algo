@@ -25,7 +25,7 @@ mutablePairsDef =
     { Tok.commentLine = "%",
       Tok.identStart = letter,
       Tok.identLetter = alphaNum <|> oneOf "_-?",
-      Tok.reservedOpNames = ["=", "-","+","%","/","^","*",">","<","<=",">="],
+      Tok.reservedOpNames = ["=", "-","+","%","/","^","*",">","<","<=",">=","&&","||"],
       Tok.reservedNames =
         [ "let",
           "in",
