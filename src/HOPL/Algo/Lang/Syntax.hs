@@ -36,6 +36,8 @@ data Exp
   | SetRightExp Exp Exp
   | MultiExp Exp Exp
   | DivExp Exp Exp
+  | AndExp Exp Exp
+  | OrExp Exp Exp 
   | NotEqualsExp Exp Exp
   | EqualsExp Exp Exp
   | GreaterThanExp Exp Exp

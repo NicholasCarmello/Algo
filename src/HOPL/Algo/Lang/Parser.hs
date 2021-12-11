@@ -91,6 +91,18 @@ expression =
       LessThanExp
         <$> (reservedOp "<" >> symbol "(" >> expression)
         <*> (symbol "," >> expression <* symbol ")"),
+      GreaterEqualExp
+        <$> (reservedOp ">=" >> symbol "(" >> expression)
+        <*> (symbol "," >> expression <* symbol ")"),
+      AndExp
+        <$> (reservedOp "&&" >> symbol "(" >> expression)
+        <*> (symbol "," >> expression <* symbol ")"),
+      OrExp
+        <$> (reservedOp "||" >> symbol "(" >> expression)
+        <*> (symbol "," >> expression <* symbol ")"),
+      LessEqualExp
+        <$> (reservedOp "<=" >> symbol "(" >> expression)
+        <*> (symbol "," >> expression <* symbol ")"),
       SumExp
         <$> (reservedOp "+" >> symbol "(" >> expression)
         <*> (symbol "," >> expression <* symbol ")"),
