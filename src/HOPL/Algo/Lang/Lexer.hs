@@ -29,7 +29,9 @@ mutablePairsDef =
       Tok.reservedOpNames = ["=", "-","+","%","/","^","*",">","<","<=",">=","&&","||"],
       Tok.reservedNames =
 
-        [ "list",
+        [ "true",
+          "false",
+          "list",
           "let",
           "in",
           "if",

@@ -150,6 +150,8 @@ valueOf (SetRightExp lhs rhs) ρ σ = Answer (NumVal 42) σ₃
     σ₃ = setRight σ₂ pr rval
 valueOf EmptyExp ρ σ = Answer (ListVal []) σ
 valueOf (StrExp s) _ σ = Answer (StrVal s) σ
+valueOf TrueExp ρ σ = Answer (BoolVal True) σ
+valueOf FalseExp ρ σ = Answer (BoolVal False) σ
 {- Auxiliary function for applying procedure values -}
 applyProcedure :: Procedure -> DenVal -> Store -> Answer
 applyProcedure (ClosedProcedure x body ρ) arg σ = valueOf body (extendEnv x arg ρ) σ

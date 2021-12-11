@@ -123,6 +123,10 @@ expression =
       SetRightExp
         <$> (reserved "setright" >> expression)
         <*> (symbol "=" >> expression),
+      TrueExp
+        <$ reserved "true",
+      FalseExp
+        <$ reserved "false",
       StrExp
         <$> stringLiteral,
       ConstExp

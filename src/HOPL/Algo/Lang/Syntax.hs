@@ -47,4 +47,6 @@ data Exp
   | GreaterEqualExp Exp Exp
   | LessEqualExp Exp Exp
   | StrExp String
+  | FalseExp 
+  | TrueExp 
   deriving (Eq, Ord, Show)
