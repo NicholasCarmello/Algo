@@ -44,6 +44,7 @@ data ExpVal
   | BoolVal {expvalToBool :: Bool}
   | ProcVal {expvalToProc :: Procedure}
   | MutPairVal {expvalToPair :: MutPair}
+  | StrVal {expvalToString :: String}
   | ListVal {expvalToList :: [ExpVal]}
   deriving (Eq)
 
