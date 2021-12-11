@@ -53,7 +53,7 @@ repl = do
                   "LETREC" -> doInterp LETREC.interp input
                   "EXPLICIT_REFS" -> doInterp EXPLICIT_REFS.interp input
                   "IMPLICIT_REFS" -> doInterp IMPLICIT_REFS.interp input
-                  "MUTABLE_PAIRS" -> doInterp Algo.interp input
+                  "Algo" -> doInterp Algo.interp input
                   "CALL_BY_REFERENCE" -> doInterp CALL_BY_REFERENCE.interp input
                   "CALL_BY_NEED" -> doInterp CALL_BY_NEED.interp input
                   "SIMPLE_STATEMENT" -> doInterp' SIMPLE_STATEMENT.interp input
