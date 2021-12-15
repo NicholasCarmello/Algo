@@ -38,12 +38,20 @@ spec =
         interp "||(true,false)" `shouldBe` BoolVal True
       specify "greater-than-test" $
         interp ">(5,4)" `shouldBe` BoolVal True
+      specify "greater than or equal to" $
+        interp ">=(10,10)" `shouldBe` BoolVal True
+      specify "less-than-test" $
+        interp ">(2,4)" `shouldBe` BoolVal True
+      specify "less than or equal to" $
+        interp "<=(5,10)" `shouldBe` BoolVal True
+
 
     describe "Error tests" $ do
       specify "test-unbound-var-1" $
         printInterp "foo" `shouldThrow` anyErrorCall
       specify "test-unbound-var-1" $
         printInterp "-(x,foo)" `shouldThrow` anyErrorCall
+      
   where
     interp = fromRight undefined . interpWith testEnv testStore
     printInterp = print . interpWith testEnv testStore
