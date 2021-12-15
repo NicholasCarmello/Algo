@@ -4,7 +4,7 @@ cabal-version: 2.2
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 44059d415fb9e3043a4aa1978b0022c500cacb53634b8b54e151cdfdbe9fd805
+-- hash: 8b90a42058e789202548c7d2a0898ee8a40919cfed31509e94da1530be464ef1
 
 name:           hopl3-code
 version:        0.1.1.0
@@ -150,6 +150,7 @@ test-suite hopl3-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
+      Algo
       CallByNeedSpec
       CallByReferenceSpec
       CheckedSpec
@@ -158,7 +159,6 @@ test-suite hopl3-test
       InferredSpec
       LetrecSpec
       LetSpec
-      MutablePairsSpec
       ProcSpec
       SimpleStatementSpec
       Paths_hopl3_code

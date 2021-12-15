@@ -75,12 +75,12 @@ valueOf (LessThanExp exp₁ exp₂) ρ σ = Answer (BoolVal (n₁ < n₂)) σ₂
     Answer (NumVal n₂) σ₂ = valueOf exp₂ ρ σ₁
 valueOf (EqualsExp exp₁ exp₂) ρ σ = Answer (BoolVal (n₁ == n₂)) σ₂
   where
-    Answer (NumVal n₁) σ₁ = valueOf exp₁ ρ σ
-    Answer (NumVal n₂) σ₂ = valueOf exp₂ ρ σ₁
+    Answer (n₁) σ₁ = valueOf exp₁ ρ σ
+    Answer (n₂) σ₂ = valueOf exp₂ ρ σ₁
 valueOf (NotEqualsExp exp₁ exp₂) ρ σ = Answer (BoolVal (n₁ /= n₂)) σ₂
   where
-    Answer (NumVal n₁) σ₁ = valueOf exp₁ ρ σ
-    Answer (NumVal n₂) σ₂ = valueOf exp₂ ρ σ₁
+    Answer (n₁) σ₁ = valueOf exp₁ ρ σ
+    Answer (n₂) σ₂ = valueOf exp₂ ρ σ₁
 valueOf (SumExp exp₁ exp₂) ρ σ = Answer (NumVal (n₁ + n₂)) σ₂
   where
     Answer (NumVal n₁) σ₁ = valueOf exp₁ ρ σ
