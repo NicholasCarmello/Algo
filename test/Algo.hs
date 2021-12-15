@@ -38,7 +38,14 @@ spec =
         interp "||(true,false)" `shouldBe` BoolVal True
       specify "greater-than-test" $
         interp ">(5,4)" `shouldBe` BoolVal True
-
+      specify "multiplication-test" $
+        interp "*(5,4)" `shouldBe` NumVal 20
+      specify "Division-test" $
+        interp "/(20,5)" `shouldBe` NumVal 4
+      specify "minus-test" $
+        interp "-(5,4)" `shouldBe` NumVal 1
+      specify "addition-test" $
+        interp "+(5,4)" `shouldBe` NumVal 9
     describe "Error tests" $ do
       specify "test-unbound-var-1" $
         printInterp "foo" `shouldThrow` anyErrorCall
